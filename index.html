@@ -6,21 +6,25 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tu Marca — CRM</title>
+<title>AURA NOVA — CRM</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --pink:#D4537E;--pink-light:#FBEAF0;--pink-mid:#F4C0D1;--pink-dark:#72243E;
+  --pink:#66545A;--pink-light:#F8EDEE;--pink-mid:#E8D1D9;--pink-dark:#4E3F44;
+  --nude:#D8C4C0;--malva-topo:#A99491;
   --teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#085041;
   --amber:#BA7517;--amber-light:#FAEEDA;--amber-dark:#633806;
   --purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#3C3489;
   --blue:#185FA5;--blue-light:#E6F1FB;--blue-dark:#0C447C;
   --coral:#993C1D;--coral-light:#FAECE7;
-  --gray:#5F5E5A;--gray-light:#F1EFE8;--gray-mid:#D3D1C7;
+  --gray:#66545A;--gray-light:#F6EFEE;--gray-mid:#D8C4C0;
   --red:#A32D2D;--red-light:#FCEBEB;
   --green:#3B6D11;--green-light:#EAF3DE;
-  --bg:#FAFAF8;--surface:#FFFFFF;--border:#E8E6E0;--border2:#D3D1C7;
-  --text:#1A1A18;--text2:#5F5E5A;--text3:#9C9A92;
+  --bg:#FCF8F8;--surface:#FFFFFF;--border:#EEE3E3;--border2:#D8C4C0;
+  --text:#33292D;--text2:#66545A;--text3:#A99491;
   --radius:10px;--radius-sm:6px;--radius-lg:14px;
 
   /* ── Capa semántica (Fase 1 del sistema de diseño) — mismos colores, nombres consistentes ── */
@@ -292,13 +296,13 @@ td.empty-state{padding:20px;text-align:center}
 <div id="login-page" class="login-wrap">
   <div class="login-card">
     <div class="login-brand">
-      <div class="login-brand-name">TU MARCA</div>
-      <div class="login-brand-sub">Sistema de gestión</div>
+      <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:230px">
+      <div class="login-brand-sub" style="margin-top:8px">Sistema de gestión</div>
     </div>
     <div id="login-error" class="login-error">Usuario o contraseña incorrectos</div>
     <div class="form-row">
       <label class="form-label">Usuario</label>
-      <input type="text" id="inp-user" placeholder="admin / operador" autocomplete="off">
+      <input type="text" id="inp-user" placeholder="Tu usuario" autocomplete="off">
     </div>
     <div class="form-row">
       <label class="form-label">Contraseña</label>
@@ -310,14 +314,17 @@ td.empty-state{padding:20px;text-align:center}
 
 <style>
 /* ── FORM 5 PASOS ── */
-.f5-wrap{min-height:100vh;background:linear-gradient(135deg,#FDF0F5 0%,#F8F0FA 100%);padding:0 0 40px}
+.f5-wrap{min-height:100vh;background:linear-gradient(135deg,#F8EDEE 0%,#FBF5F4 100%);padding:0 0 40px}
 .f5-header{text-align:center;padding:28px 16px 20px}
-.f5-logo{font-size:22px;font-weight:700;letter-spacing:.16em;color:#72243E}
+.f5-logo{font-size:22px;font-weight:700;letter-spacing:.16em;color:#4E3F44}
+.brand-logo{display:block;margin:0 auto;height:auto;max-width:100%}
+.f5-title,.sec-title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:.01em}
+.f5-title{font-size:21px}
 .f5-subtitle{font-size:11px;color:#9C9A92;letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
 .f5-card{max-width:420px;margin:0 auto 12px;background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.06);overflow:hidden}
-.f5-progress{display:flex;background:#F1EFE8;padding:0}
+.f5-progress{display:flex;background:#F8EDEE;padding:0}
 .f5-step-tab{flex:1;padding:10px 4px;text-align:center;font-size:10px;color:#9C9A92;border-bottom:2px solid transparent;transition:all .2s;cursor:default}
-.f5-step-tab.active{color:#D4537E;border-bottom-color:#D4537E;font-weight:600}
+.f5-step-tab.active{color:#66545A;border-bottom-color:#66545A;font-weight:600}
 .f5-step-tab.done{color:#1D9E75;border-bottom-color:#1D9E75}
 .f5-step-num{display:block;font-size:14px;font-weight:700;margin-bottom:2px}
 .f5-body{padding:20px 20px 8px}
@@ -325,40 +332,40 @@ td.empty-state{padding:20px;text-align:center}
 .f5-desc{font-size:12px;color:#5F5E5A;margin-bottom:18px;line-height:1.5}
 .f5-label{font-size:11px;font-weight:500;color:#5F5E5A;margin-bottom:4px;display:block}
 .f5-input{width:100%;padding:10px 13px;border:1px solid #E8E6E0;border-radius:8px;font-size:13px;color:#1A1A18;background:#fff;outline:none;transition:border .15s;font-family:inherit;margin-bottom:12px}
-.f5-input:focus{border-color:#D4537E}
+.f5-input:focus{border-color:#66545A}
 .f5-select{width:100%;padding:10px 13px;border:1px solid #E8E6E0;border-radius:8px;font-size:13px;color:#1A1A18;background:#fff;outline:none;margin-bottom:12px;font-family:inherit}
 .f5-courier-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .f5-courier-opt{border:1.5px solid #E8E6E0;border-radius:12px;padding:14px 12px;cursor:pointer;text-align:center;transition:all .2s}
-.f5-courier-opt:hover{border-color:#D4537E;background:#FBEAF0}
-.f5-courier-opt.selected{border-color:#D4537E;background:#FBEAF0}
+.f5-courier-opt:hover{border-color:#66545A;background:#F8EDEE}
+.f5-courier-opt.selected{border-color:#66545A;background:#F8EDEE}
 .f5-courier-icon{font-size:26px;margin-bottom:6px}
 .f5-courier-name{font-size:13px;font-weight:600;color:#1A1A18;margin-bottom:3px}
 .f5-courier-desc{font-size:11px;color:#5F5E5A;line-height:1.4}
 .f5-courier-price{font-size:12px;font-weight:600;margin-top:6px}
 .f5-courier-price.gratis{color:#1D9E75}
-.f5-courier-price.pago{color:#D4537E}
-.f5-info-box{background:#FBEAF0;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#72243E;line-height:1.5}
+.f5-courier-price.pago{color:#66545A}
+.f5-info-box{background:#F8EDEE;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#4E3F44;line-height:1.5}
 .f5-info-box.green{background:#EAF3DE;color:#27500A}
-.f5-tc-box{background:#F1EFE8;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:11.5px;color:#5F5E5A;line-height:1.6;max-height:160px;overflow-y:auto}
+.f5-tc-box{background:#F8EDEE;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:11.5px;color:#5F5E5A;line-height:1.6;max-height:160px;overflow-y:auto}
 .f5-tc-box h4{font-size:12px;font-weight:600;color:#1A1A18;margin-bottom:6px}
 .f5-tc-box li{margin-bottom:4px;margin-left:14px}
 .f5-check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
-.f5-check-row input{width:auto;margin-top:2px;flex-shrink:0;accent-color:#D4537E}
+.f5-check-row input{width:auto;margin-top:2px;flex-shrink:0;accent-color:#66545A}
 .f5-check-label{font-size:12px;color:#5F5E5A;line-height:1.5}
 .f5-nav{display:flex;gap:10px;padding:12px 20px 20px}
 .f5-btn-back{flex:1;padding:11px;border:1px solid #E8E6E0;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;color:#5F5E5A}
-.f5-btn-next{flex:2;padding:11px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#D4537E;color:#fff;transition:background .15s}
-.f5-btn-next:hover{background:#72243E}
+.f5-btn-next{flex:2;padding:11px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#66545A;color:#fff;transition:background .15s}
+.f5-btn-next:hover{background:#4E3F44}
 .f5-btn-next:disabled{background:#D3D1C7;cursor:not-allowed}
-.f5-btn-full{width:100%;padding:12px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;background:#D4537E;color:#fff;margin-bottom:10px}
+.f5-btn-full{width:100%;padding:12px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;background:#66545A;color:#fff;margin-bottom:10px}
 .f5-resumen-item{display:flex;justify-content:space-between;padding:5px 0;border-bottom:0.5px solid #E8E6E0;font-size:12.5px}
 .f5-resumen-item:last-child{border-bottom:none}
 .f5-total-row{display:flex;justify-content:space-between;font-weight:700;font-size:15px;padding-top:10px;margin-top:6px;border-top:1px solid #E8E6E0}
 .f5-pago-metodo{display:flex;gap:8px;margin-bottom:12px}
 .f5-pago-btn{flex:1;padding:10px;border:1.5px solid #E8E6E0;border-radius:8px;cursor:pointer;text-align:center;font-size:12px;font-weight:500;transition:all .2s}
-.f5-pago-btn.selected{border-color:#D4537E;background:#FBEAF0;color:#72243E}
+.f5-pago-btn.selected{border-color:#66545A;background:#F8EDEE;color:#4E3F44}
 .f5-upload-area{border:1.5px dashed #D3D1C7;border-radius:8px;padding:20px;text-align:center;cursor:pointer;margin-bottom:12px;transition:border .2s}
-.f5-upload-area:hover{border-color:#D4537E}
+.f5-upload-area:hover{border-color:#66545A}
 .f5-upload-area.has-file{border-color:#1D9E75;background:#EAF3DE}
 .f5-error{background:#FCEBEB;color:#A32D2D;padding:8px 12px;border-radius:6px;font-size:12px;margin-bottom:10px;display:none}
 .f5-success{text-align:center;padding:32px 20px}
@@ -367,7 +374,7 @@ td.empty-state{padding:20px;text-align:center}
 
 <div class="f5-wrap" id="form-envio-page" style="display:none">
   <div class="f5-header">
-    <div class="f5-logo">TU MARCA</div>
+    <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:210px">
     <div class="f5-subtitle">Programa tu envío</div>
   </div>
 
@@ -468,7 +475,7 @@ td.empty-state{padding:20px;text-align:center}
         <div class="f5-title">Resumen de tu pedido</div>
         <div class="f5-desc">Verifica que todo esté correcto antes de continuar</div>
         <div id="f5-resumen-prendas" style="margin-bottom:14px"></div>
-        <div id="f5-resumen-envio" style="background:#F1EFE8;border-radius:8px;padding:12px 14px;font-size:12px;color:#5F5E5A;margin-bottom:4px"></div>
+        <div id="f5-resumen-envio" style="background:#F8EDEE;border-radius:8px;padding:12px 14px;font-size:12px;color:#5F5E5A;margin-bottom:4px"></div>
       </div>
       <div class="f5-nav">
         <button class="f5-btn-back" onclick="f5Back()">← Atrás</button>
@@ -516,7 +523,7 @@ td.empty-state{padding:20px;text-align:center}
         </div>
         <div class="f5-check-row">
           <input type="checkbox" id="f5-acepto" onchange="document.getElementById('f5-btn-4').disabled=!this.checked">
-          <label class="f5-check-label" for="f5-acepto">He leído y acepto los términos y condiciones del servicio de envío de Tu Marca.</label>
+          <label class="f5-check-label" for="f5-acepto">He leído y acepto los términos y condiciones del servicio de envío de AURA NOVA.</label>
         </div>
         <div class="f5-error" id="f5-err-4"></div>
       </div>
@@ -531,7 +538,7 @@ td.empty-state{padding:20px;text-align:center}
       <!-- SHALOM: sin pago -->
       <div id="f5-shalom-confirm" style="display:none">
         <div class="f5-body">
-          <div class="f5-title">¡Todo listo! 🌸</div>
+          <div class="f5-title">¡Todo listo! ✨</div>
           <div class="f5-desc">Tu pedido será enviado a la agencia Shalom que indicaste.</div>
           <div class="f5-info-box green" style="margin-bottom:0">
             ✓ <strong>No debes pagar nada ahora.</strong> El envío es sin costo adicional con Shalom. Solo recoge tu paquete en la agencia cuando te avisemos.
@@ -561,10 +568,10 @@ td.empty-state{padding:20px;text-align:center}
             </div>
           </div>
 
-          <div id="f5-datos-pago" style="display:none;background:#F1EFE8;border-radius:8px;padding:12px 14px;margin-bottom:14px;text-align:center">
+          <div id="f5-datos-pago" style="display:none;background:#F8EDEE;border-radius:8px;padding:12px 14px;margin-bottom:14px;text-align:center">
             <div style="font-size:12px;color:#5F5E5A;margin-bottom:4px">Transfiere <strong>S/ 14.00</strong> a:</div>
-            <div style="font-size:18px;font-weight:700;color:#1A1A18;letter-spacing:.05em" id="f5-num-pago">921 328 731</div>
-            <div style="font-size:11px;color:#5F5E5A;margin-top:3px">A nombre de Tu Marca</div>
+            <div style="font-size:18px;font-weight:700;color:#1A1A18;letter-spacing:.05em" id="f5-num-pago">930 431 511</div>
+            <div style="font-size:11px;color:#5F5E5A;margin-top:3px">A nombre de Valeria Sanchez</div>
           </div>
 
           <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#9C9A92;margin-bottom:8px">Sube tu comprobante *</div>
@@ -593,12 +600,12 @@ td.empty-state{padding:20px;text-align:center}
         <div class="f5-success-icon">🎉</div>
         <div style="font-size:18px;font-weight:700;color:#1A1A18;margin-bottom:6px">¡Pedido programado!</div>
         <div style="font-size:12.5px;color:#5F5E5A;margin-bottom:16px;line-height:1.6">Nos estaremos comunicando contigo pronto.<br>El despacho sale en <strong>48 horas hábiles</strong>.</div>
-        <div style="background:#F1EFE8;border-radius:10px;padding:14px;margin-bottom:16px">
+        <div style="background:#F8EDEE;border-radius:10px;padding:14px;margin-bottom:16px">
           <div style="font-size:11px;color:#9C9A92;margin-bottom:4px">Código de seguimiento</div>
-          <div style="font-size:18px;font-weight:700;color:#D4537E" id="f5-codigo-ok">—</div>
+          <div style="font-size:18px;font-weight:700;color:#66545A" id="f5-codigo-ok">—</div>
         </div>
         <button class="f5-btn-full" onclick="window.location.href=location.pathname+'?tracking='+document.getElementById('f5-codigo-ok').textContent">🔍 Ver estado de mi pedido</button>
-        <div style="font-size:12px;color:#9C9A92;margin-top:8px">¿Dudas? Escríbenos al <strong style="color:#1A1A18">921 328 731</strong></div>
+        <div style="font-size:12px;color:#9C9A92;margin-top:8px">¿Dudas? Escríbenos al <strong style="color:#1A1A18">930 431 511</strong></div>
       </div>
     </div>
   </div>
@@ -608,7 +615,7 @@ td.empty-state{padding:20px;text-align:center}
 <div id="registro-page" style="display:none">
   <div class="f5-wrap">
     <div class="f5-header">
-      <div class="f5-logo">TU MARCA</div>
+      <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:210px">
       <div class="f5-subtitle">Registra tus datos</div>
     </div>
     <div class="f5-card">
@@ -616,19 +623,19 @@ td.empty-state{padding:20px;text-align:center}
       <div id="rg-br-ok-wrap" style="display:none">
         <div class="f5-body">
           <div class="f5-title">¡Hola, <span id="rg-br-ok-nombre"></span>! 👋</div>
-          <div style="background:#F1EFE8;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
+          <div style="background:#F8EDEE;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
             <div style="font-size:11px;color:#9C9A92;margin-bottom:6px">TUS DATOS REGISTRADOS</div>
             <div id="rg-br-ok-detalle" style="font-size:12.5px;color:#1A1A18;line-height:1.8"></div>
           </div>
           <button class="f5-btn-full" onclick="rgBrConfirmar()">✅ Están correctos</button>
-          <button class="f5-btn-full" style="background:#F1EFE8;color:#5F5E5A;margin-top:8px" onclick="rgBrActualizar()">✏️ Actualizar mis datos</button>
+          <button class="f5-btn-full" style="background:#F8EDEE;color:#5F5E5A;margin-top:8px" onclick="rgBrActualizar()">✏️ Actualizar mis datos</button>
         </div>
       </div>
 
       <!-- PASO 0: buscar por teléfono -->
       <div id="rg-buscar-wrap">
         <div class="f5-body">
-          <div class="f5-title" id="rg-buscar-title">Tus datos de envío 🌸</div>
+          <div class="f5-title" id="rg-buscar-title">Tus datos de envío ✨</div>
           <div class="f5-desc" id="rg-buscar-desc">Ingresa tu número para ver si ya estás registrada, o crear tus datos por primera vez.</div>
           <label class="f5-label" id="rg-buscar-label">Tu número WhatsApp *</label>
           <input class="f5-input" id="rg-buscar-tel" placeholder="987 654 321" type="tel" maxlength="12">
@@ -641,30 +648,30 @@ td.empty-state{padding:20px;text-align:center}
       <div id="rg-existente-wrap" style="display:none">
         <div class="f5-body">
           <div class="f5-title">¡Hola de nuevo, <span id="rg-ex-nombre"></span>! 👋</div>
-          <div style="background:#F1EFE8;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
+          <div style="background:#F8EDEE;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
             <div style="font-size:11px;color:#9C9A92;margin-bottom:6px">TUS DATOS ACTUALES</div>
             <div id="rg-ex-detalle" style="font-size:12.5px;color:#1A1A18;line-height:1.8"></div>
           </div>
           <div id="rg-ex-urgente-wrap" style="display:none;margin-bottom:12px">
             <label style="display:block;font-size:11px;color:#5F5E5A;margin-bottom:4px;text-align:left">¿Alguna indicación para tu entrega? <span style="color:#9C9A92;font-weight:400">(opcional)</span></label>
             <input type="text" id="rg-ex-nota" class="f5-input" placeholder="ej. entregar antes de las 6pm" style="margin-bottom:10px">
-            <button class="f5-btn-full" style="background:#B3184A" onclick="rgSolicitarUrgente('rg-ex')">🚀 Solicitar envío lo antes posible</button>
+            <button class="f5-btn-full" style="background:#66545A" onclick="rgSolicitarUrgente('rg-ex')">🚀 Solicitar envío lo antes posible</button>
             <div style="font-size:11px;color:#9C9A92;margin-top:6px;text-align:center">Le avisamos a nuestro equipo para que programe tu envío cuanto antes</div>
-            <button class="f5-btn-full" style="background:#F1EFE8;color:#5F5E5A;margin-top:8px" onclick="rgConfirmarAcumular('rg-ex')">🛍️ Prefiero seguir acumulando</button>
+            <button class="f5-btn-full" style="background:#F8EDEE;color:#5F5E5A;margin-top:8px" onclick="rgConfirmarAcumular('rg-ex')">🛍️ Prefiero seguir acumulando</button>
           </div>
-          <button class="f5-btn-full" style="background:#F1EFE8;color:#5F5E5A" onclick="rgEditar()">Actualizar mis datos</button>
+          <button class="f5-btn-full" style="background:#F8EDEE;color:#5F5E5A" onclick="rgEditar()">Actualizar mis datos</button>
         </div>
       </div>
 
       <!-- PASO FORM: registro / edición completa -->
       <div id="rg-form-wrap" style="display:none">
         <div class="f5-body">
-          <div class="f5-title">Registra tus datos de envío 🌸</div>
+          <div class="f5-title">Registra tus datos de envío ✨</div>
           <div class="f5-desc">Llénalo una sola vez y úsalo en todos tus pedidos. Así programar tu envío será mucho más rápido.</div>
           <label class="f5-label">Nombre completo *</label>
           <input class="f5-input" id="rg-nombre" placeholder="Nombre y apellido">
           <label class="f5-label">Tu número WhatsApp *</label>
-          <input class="f5-input" id="rg-tel" placeholder="987 654 321" type="tel" maxlength="12" readonly style="background:#F1EFE8">
+          <input class="f5-input" id="rg-tel" placeholder="987 654 321" type="tel" maxlength="12" readonly style="background:#F8EDEE">
           <div style="font-size:11px;color:#9C9A92;margin-top:-8px;margin-bottom:12px">Con este número te identificamos en cada pedido</div>
           <label class="f5-label">DNI *</label>
           <input class="f5-input" id="rg-dni" placeholder="12345678" maxlength="8">
@@ -718,20 +725,20 @@ td.empty-state{padding:20px;text-align:center}
           <div class="f5-success-icon">✅</div>
           <div style="font-size:18px;font-weight:700;color:#1A1A18;margin-bottom:6px">¡Datos guardados!</div>
           <div id="rg-confirm-msg" style="font-size:12.5px;color:#5F5E5A;margin-bottom:16px;line-height:1.6">Ya puedes comprar en nuestros lives sin preocuparte por llenar tu dirección cada vez.</div>
-          <div style="background:#F1EFE8;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
+          <div style="background:#F8EDEE;border-radius:10px;padding:14px;text-align:left;margin-bottom:16px">
             <div style="font-size:11px;color:#9C9A92;margin-bottom:6px">TUS DATOS</div>
             <div id="rg-confirm-detalle" style="font-size:12.5px;color:#1A1A18;line-height:1.8"></div>
           </div>
           <div id="rg-confirm-urgente-wrap" style="display:none;margin-bottom:12px">
             <label style="display:block;font-size:11px;color:#5F5E5A;margin-bottom:4px;text-align:left">¿Alguna indicación para tu entrega? <span style="color:#9C9A92;font-weight:400">(opcional)</span></label>
             <input type="text" id="rg-confirm-nota" class="f5-input" placeholder="ej. entregar antes de las 6pm" style="margin-bottom:10px">
-            <button class="f5-btn-full" style="background:#B3184A" onclick="rgSolicitarUrgente('rg-confirm')">🚀 Solicitar envío lo antes posible</button>
+            <button class="f5-btn-full" style="background:#66545A" onclick="rgSolicitarUrgente('rg-confirm')">🚀 Solicitar envío lo antes posible</button>
             <div style="font-size:11px;color:#9C9A92;margin-top:6px;text-align:center">Le avisamos a nuestro equipo para que programe tu envío cuanto antes</div>
-            <button class="f5-btn-full" style="background:#F1EFE8;color:#5F5E5A;margin-top:8px" onclick="rgConfirmarAcumular('rg-confirm')">🛍️ Prefiero seguir acumulando</button>
+            <button class="f5-btn-full" style="background:#F8EDEE;color:#5F5E5A;margin-top:8px" onclick="rgConfirmarAcumular('rg-confirm')">🛍️ Prefiero seguir acumulando</button>
           </div>
           <button id="rg-br-wa" class="f5-btn-full" style="display:none;background:#25D366;margin-bottom:8px" onclick="rgBrAbrirWA()">📲 Enviar mis datos por WhatsApp</button>
-          <button class="f5-btn-full" style="background:#F1EFE8;color:#5F5E5A" onclick="rgEditar()">Actualizar mis datos</button>
-          <div style="font-size:12px;color:#9C9A92;margin-top:8px">¿Dudas? Escríbenos al <strong style="color:#1A1A18">921 328 731</strong></div>
+          <button class="f5-btn-full" style="background:#F8EDEE;color:#5F5E5A" onclick="rgEditar()">Actualizar mis datos</button>
+          <div style="font-size:12px;color:#9C9A92;margin-top:8px">¿Dudas? Escríbenos al <strong style="color:#1A1A18">930 431 511</strong></div>
         </div>
       </div>
     </div>
@@ -739,17 +746,17 @@ td.empty-state{padding:20px;text-align:center}
 </div>
 
 <!-- ═══════════════════════════════════════ ENVÍO SHALOM PARA LA CLIENTA (público) ═══ -->
-<div id="envio-page" style="display:none;min-height:100vh;background:#F7F5F2;padding:16px;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:#1A1A18">
+<div id="envio-page" style="display:none;min-height:100vh;background:#FCF8F8;padding:16px;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:#1A1A18">
   <div style="max-width:480px;margin:0 auto">
-    <div style="text-align:center;letter-spacing:3px;font-weight:700;font-size:15px;margin:6px 0 14px">TU MARCA</div>
+    <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:170px;margin:6px auto 14px">
     <div id="env-body"><div style="text-align:center;padding:30px;color:#6b6a65">Cargando tu envío...</div></div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════ RESUMEN DE PEDIDO PARA EMPACAR (público, por QR) ═══ -->
-<div id="empaque-page" style="display:none;min-height:100vh;background:#F7F5F2;padding:16px;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:#1A1A18">
+<div id="empaque-page" style="display:none;min-height:100vh;background:#FCF8F8;padding:16px;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:#1A1A18">
   <div style="max-width:480px;margin:0 auto">
-    <div style="text-align:center;letter-spacing:3px;font-weight:700;font-size:15px;margin:6px 0 14px">TU MARCA</div>
+    <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:170px;margin:6px auto 14px">
     <div id="emp-body"><div style="text-align:center;padding:30px;color:#6b6a65">Cargando pedido...</div></div>
   </div>
 </div>
@@ -758,7 +765,7 @@ td.empty-state{padding:20px;text-align:center}
 <div id="seguimiento-page" style="display:none">
   <div class="f5-wrap">
     <div class="f5-header">
-      <div class="f5-logo">TU MARCA</div>
+      <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:210px">
       <div class="f5-subtitle">Rastrea tu pedido</div>
     </div>
     <div class="f5-card">
@@ -783,8 +790,8 @@ td.empty-state{padding:20px;text-align:center}
   <!-- SIDEBAR -->
   <div class="sidebar" id="app-sidebar">
     <div class="sb-brand">
-      <div class="sb-brand-name">TU MARCA</div>
-      <div class="sb-brand-sub">gestión de tienda</div>
+      <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:150px;margin:0">
+      <div class="sb-brand-sub" style="margin-top:4px">gestión de tienda</div>
     </div>
 
     <div class="sb-section">Principal</div>
@@ -1505,7 +1512,7 @@ td.empty-state{padding:20px;text-align:center}
 <div id="tracking-page" style="display:none">
   <div class="trk-wrap">
     <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:20px;font-weight:700;letter-spacing:.14em;color:var(--text)">TU MARCA</div>
+      <img src="logo.png" alt="AURA NOVA" class="brand-logo" style="width:190px">
       <div style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-top:2px">Seguimiento de pedido</div>
     </div>
     <div class="trk-card">
@@ -1525,7 +1532,7 @@ td.empty-state{padding:20px;text-align:center}
         <div id="trk-items"></div>
       </div>
       <div style="padding:12px 16px;text-align:center;font-size:12px;color:var(--text3);border-top:0.5px solid var(--border)">
-        Consultas al WhatsApp <strong style="color:var(--text)">921 328 731</strong>
+        Consultas al WhatsApp <strong style="color:var(--text)">930 431 511</strong>
       </div>
     </div>
   </div>
@@ -2123,13 +2130,13 @@ td.empty-state{padding:20px;text-align:center}
 // ⚙️ CONFIGURACIÓN DEL NEGOCIO — CAMBIA SOLO ESTE BLOQUE PARA CADA CLIENTA
 // ═══════════════════════════════════════════════════════════════
 const CONFIG = {
-  MARCA: 'TU MARCA',                                   // nombre de la marca
-  WA_NEGOCIO: '51999999999',                            // WhatsApp del negocio (51 + 9 dígitos, sin +)
-  URL_BASE: 'https://TU-USUARIO.github.io/TU-REPO/',    // dirección pública del CRM (termina en /)
-  SUPA_URL: 'https://TU-PROYECTO.supabase.co',          // Supabase → Project Settings → API → Project URL
-  SUPA_KEY: 'TU_LLAVE_PUBLISHABLE',                     // Supabase → Project Settings → API → Publishable key
+  MARCA: 'AURA NOVA',                                   // nombre de la marca
+  WA_NEGOCIO: '51930431511',                            // WhatsApp del negocio (51 + 9 dígitos, sin +)
+  URL_BASE: 'https://rnt124.github.io/crm-auranova/',    // dirección pública del CRM (termina en /)
+  SUPA_URL: 'https://qyajkqtzcqauuvbpawyg.supabase.co',          // Supabase → Project Settings → API → Project URL
+  SUPA_KEY: 'sb_publishable_soBP6HjxE9GQiW1ge8XEHA_fMlg6PDV',                     // Supabase → Project Settings → API → Publishable key
   TASA_RL: 0.69,                                       // solo módulo Brasil: soles por 1 real
-  ENVIO_MOTORIZADO: 14,                                // tarifa fija motorizado (S/)
+  ENVIO_MOTORIZADO: 10,                                // tarifa fija motorizado (S/)
   CANALES: ['Canal 1','Canal 2'],                      // solo módulo Brasil: canales de venta
 };
 // ══════════════ SUPABASE CONFIG ══════════════
@@ -2170,14 +2177,44 @@ function inicioSemanaLunes(fecha){
 // ══════════════ LOCAL FALLBACK DATA ══════════════
 const USERS = {
   // ⚠ CAMBIA estos usuarios y contraseñas antes de usar el sistema con datos reales
-  admin: { pass:'CAMBIAR-admin-1', nombre:'Admin', rol:'Admin', initials:'A' },
-  operador: { pass:'CAMBIAR-operador-1', nombre:'Operador', rol:'Operador', initials:'O' },
-  trabajador: { pass:'CAMBIAR-trabajador-1', nombre:'Trabajador', rol:'Trabajador', initials:'T' }
+  valeria: { pass:'Aura-gzyq82wp', nombre:'Valeria', rol:'Admin', initials:'V' },
+  asistente1: { pass:'Nova-muak37xg', nombre:'Asistente 1', rol:'Trabajador', initials:'A' }
 };
 
-// Pago por día trabajado (Control de Asistencia)
-const PAGO_DIA_COMPLETO = 40;
-const PAGO_MEDIO_DIA = 25;
+// Pago por día trabajado (Control de Asistencia) — lo define la administradora en la pantalla de Asistencia
+// Se guarda en la tabla 'ajustes' de Supabase. null = todavía no definido.
+let PAGO_DIA_COMPLETO = null;
+let PAGO_MEDIO_DIA = null;
+async function cargarPagosAsistencia(){
+  try{
+    const rows = await dbGet('ajustes?clave=in.(pago_dia_completo,pago_medio_dia)&select=clave,valor');
+    (rows||[]).forEach(r=>{
+      if(r.clave==='pago_dia_completo') PAGO_DIA_COMPLETO = r.valor==null?null:Number(r.valor);
+      if(r.clave==='pago_medio_dia') PAGO_MEDIO_DIA = r.valor==null?null:Number(r.valor);
+    });
+  }catch(e){ /* sin tabla o sin conexión: quedan sin definir */ }
+}
+async function guardarPagosAsistencia(){
+  if(currentUser?.rol!=='admin'){ toast('Solo la administradora puede cambiar los montos'); return; }
+  const vc = document.getElementById('asist-pago-completo').value.trim();
+  const vm = document.getElementById('asist-pago-medio').value.trim();
+  const nc = vc===''?null:Number(vc), nm = vm===''?null:Number(vm);
+  if((nc!=null && (isNaN(nc)||nc<0)) || (nm!=null && (isNaN(nm)||nm<0))){ toast('⚠️ Escribe montos válidos'); return; }
+  try{
+    await supaFetch('ajustes','POST',JSON.stringify([
+      {clave:'pago_dia_completo', valor:nc},
+      {clave:'pago_medio_dia', valor:nm}
+    ]),'resolution=merge-duplicates,return=representation');
+    PAGO_DIA_COMPLETO = nc; PAGO_MEDIO_DIA = nm;
+    toast('✓ Montos guardados');
+    renderAsistenciaAdmin();
+  }catch(e){ toast('⚠️ No se pudo guardar: '+e.message); }
+}
+function montoAsistencia(completos, medios){
+  if(PAGO_DIA_COMPLETO==null && PAGO_MEDIO_DIA==null) return null;
+  return completos*(PAGO_DIA_COMPLETO||0) + medios*(PAGO_MEDIO_DIA||0);
+}
+function fmtMontoAsistencia(v){ return v==null ? '—' : 'S/ '+v; }
 function esTrabajador(){ return !!(currentUser && currentUser.rol==='trabajador'); }
 function ocultarMontosCortes(){ return esTrabajador(); }
 
@@ -5559,7 +5596,7 @@ function renderDespachoCard(p, tipo){
 }
 
 function copiarWA(pedidoId, telefono, numero){
-  const msg = 'Hola! Tu pedido '+numero+' está listo y en camino. Pronto recibirás tu prenda 💕 — Tu Marca';
+  const msg = 'Hola! ✨ Tu pedido '+numero+' ya está en camino. Muy pronto tendrás tus prendas contigo. ¡Gracias por elegirnos! 🤍 — AURA NOVA';
   navigator.clipboard.writeText(msg).then(()=>toast('✓ Mensaje copiado — pégalo en WhatsApp'));
   if(telefono){ window.open('https://wa.me/51'+telefono.replace(/\D/g,''),'_blank'); }
 }
@@ -5616,7 +5653,7 @@ async function importarInventarioExcel(input){
         headerRow = i; break;
       }
     }
-    if(headerRow===-1){ toast('⚠️ No encontré los headers. Asegúrate de usar la plantilla de Tu Marca'); return; }
+    if(headerRow===-1){ toast('⚠️ No encontré los headers. Asegúrate de usar la plantilla de Excel del CRM'); return; }
 
     const headers = filas[headerRow].map(c=>String(c).toLowerCase().trim());
     const idx = h => headers.indexOf(h);
@@ -5839,12 +5876,12 @@ function renderTrackingPage(ped){
   document.getElementById('trk-name').textContent=cl?.nombre||'Clienta';
   document.getElementById('trk-meta').innerHTML=`<span>${ped.creado_en?.slice(0,10)||''}</span><span>${ped.tipo_envio==='shalom'?'Shalom':'Motorizado'}</span><span>${ped.distrito||''}</span>`;
   const banners={
-    pago_pendiente:{bg:'#FAEEDA',c:'#633806',lbl:'Pendiente de pago',sub:`Yape o Plin al 921 328 731 · Total S/${ped.total}`},
+    pago_pendiente:{bg:'#FAEEDA',c:'#633806',lbl:'Pendiente de pago',sub:`Yape al 930 431 511 (Valeria Sanchez) · Total S/${ped.total}`},
     pago_parcial:{bg:'#FAEEDA',c:'#633806',lbl:'Pago parcial recibido',sub:`Abono S/${ped.monto_pagado} · faltan S/${ped.total-ped.monto_pagado}`},
     pago_completo:{bg:'#E6F1FB',c:'#0C447C',lbl:'Pago confirmado',sub:'Tu pedido está en preparación'},
     empaquetado:{bg:'#E1F5EE',c:'#085041',lbl:'Pedido empaquetado',sub:'Listo para el próximo despacho'},
-    en_camino:{bg:'#F1EFE8',c:'#2C2C2A',lbl:'Tu pedido va en camino',sub:`Código: ${ped.courier_codigo||'—'} · ${ped.distrito||''}`},
-    entregado:{bg:'#EAF3DE',c:'#27500A',lbl:'¡Pedido entregado!',sub:'Gracias por tu compra en Tu Marca 🌸'}
+    en_camino:{bg:'#F8EDEE',c:'#2C2C2A',lbl:'Tu pedido va en camino',sub:`Código: ${ped.courier_codigo||'—'} · ${ped.distrito||''}`},
+    entregado:{bg:'#EAF3DE',c:'#27500A',lbl:'¡Pedido entregado!',sub:'Gracias por tu compra en AURA NOVA ✨'}
   };
   const b=banners[ped.estado]||banners.pago_pendiente;
   document.getElementById('trk-banner').style.cssText=`background:${b.bg};color:${b.c};border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:3px;margin:12px 16px 0`;
@@ -6659,7 +6696,7 @@ function rgAbrirWhatsApp(tipo){
 
 function rgConfirmarAcumular(prefijo){
   if(rgClienteActual) registrarHistorialCliente(rgClienteActual.id, 'acumular', rgClienteActual);
-  document.getElementById(prefijo+'-urgente-wrap').innerHTML = `<div style="background:#F1EFE8;color:#5F5E5A;border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:600">🛍️ Perfecto, seguimos acumulando tus prendas</div>`;
+  document.getElementById(prefijo+'-urgente-wrap').innerHTML = `<div style="background:#F8EDEE;color:#5F5E5A;border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:600">🛍️ Perfecto, seguimos acumulando tus prendas</div>`;
   rgAbrirWhatsApp('acumular');
 }
 
@@ -6687,8 +6724,8 @@ function rgMostrarFormNuevo(tel){
 
 function rgSelCourier(tipo){
   rgCourier = tipo;
-  document.getElementById('rg-opt-motorizado').style.borderColor = tipo==='motorizado' ? '#B3184A' : '#E5E3DC';
-  document.getElementById('rg-opt-shalom').style.borderColor = tipo==='shalom' ? '#B3184A' : '#E5E3DC';
+  document.getElementById('rg-opt-motorizado').style.borderColor = tipo==='motorizado' ? '#66545A' : '#E5E3DC';
+  document.getElementById('rg-opt-shalom').style.borderColor = tipo==='shalom' ? '#66545A' : '#E5E3DC';
   document.getElementById('rg-campos-motor').style.display = tipo==='motorizado' ? 'block' : 'none';
   document.getElementById('rg-campos-shalom').style.display = tipo==='shalom' ? 'block' : 'none';
 }
@@ -7882,7 +7919,7 @@ async function brDespacharSeleccion(lista0){
 let rgModoBrasil = false, rgBrPeds = [], rgBrItems = [], rgBrCli = null, rgBrBusqueda = '';
 const BR_WA_NEGOCIO = CONFIG.WA_NEGOCIO;
 const BR_LINK_DATOS = CONFIG.URL_BASE + '?datos';
-const BR_MSG_DATOS = `¡Hola! 🌸 Te saludamos de TuMarca.pe.
+const BR_MSG_DATOS = `¡Hola! ✨ Te saludamos de AURA NOVA.
 
 Para solicitar el envío de tu pedido, sigue estos pasos:
 
@@ -7893,7 +7930,7 @@ Para solicitar el envío de tu pedido, sigue estos pasos:
 
 Al finalizar, serás redirigida a WhatsApp con los datos que ingresaste para confirmar que tu formulario se completó correctamente.
 
-¡Gracias por tu compra y por confiar en Tu Marca! 💕`;
+¡Gracias por tu compra y por confiar en AURA NOVA! 🤍`;
 function rgBrEsc(t){ return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function rgBrNormTel(v){ let d=String(v||'').replace(/\D/g,''); if(d.length>9 && d.indexOf('51')===0) d=d.slice(2); return d; }
 function showDatosBrasil(){
@@ -7938,14 +7975,14 @@ async function rgBrBuscar(){
   if(!rgBrPeds.length){
     const msg = encodeURIComponent('Hola! No encuentro mi pedido en el formulario. Mi dato: '+raw);
     errEl.innerHTML = (tieneLetras ? 'No encontramos pedidos con ese usuario.' : 'No encontramos pedidos con ese celular. Si compraste con tu usuario de WhatsApp, escríbelo en lugar del celular.')
-      + ` <a href="https://wa.me/${BR_WA_NEGOCIO}?text=${msg}" style="color:#B3184A;font-weight:600">Escríbenos por WhatsApp</a>`;
+      + ` <a href="https://wa.me/${BR_WA_NEGOCIO}?text=${msg}" style="color:#66545A;font-weight:600">Escríbenos por WhatsApp</a>`;
     errEl.style.display='block'; return;
   }
   try { rgBrItems = await dbGet(`brasil_items?pedido_id=in.(${rgBrPeds.map(p=>p.id).join(',')})&select=*`); } catch(e){ rgBrItems = []; }
   const box = document.getElementById('rg-br-items');
   const nPren = rgBrItems.reduce((a,i)=>a+(i.cantidad||1),0);
-  box.innerHTML = `<div class="f5-body" style="padding-bottom:0"><div style="background:#FBEFF3;border-radius:10px;padding:12px 14px;text-align:left">
-    <div style="font-size:11px;color:#B3184A;margin-bottom:6px;font-weight:600">🛍️ LO QUE COMPRASTE (${nPren})</div>
+  box.innerHTML = `<div class="f5-body" style="padding-bottom:0"><div style="background:#F8EDEE;border-radius:10px;padding:12px 14px;text-align:left">
+    <div style="font-size:11px;color:#66545A;margin-bottom:6px;font-weight:600">🛍️ LO QUE COMPRASTE (${nPren})</div>
     ${rgBrItems.map(i=>`<div style="font-size:12.5px;color:#1A1A18;line-height:1.7">${i.cantidad||1}× ${rgBrEsc(i.producto)}${i.variante?' · '+rgBrEsc(i.variante):''}</div>`).join('') || '<div style="font-size:12.5px">—</div>'}
     <div style="font-size:11px;color:#9C9A92;margin-top:6px">Si algo no es tuyo, avísanos por WhatsApp.</div></div></div>`;
   box.style.display='block';
@@ -8027,7 +8064,7 @@ async function brLoadDatos(){
     const ok = lista.filter(tieneDatos);
     const porLink = lista.filter(g=>g.peds.some(p=>p.datos_en)).length;
     const pedPend = pend.reduce((a,g)=>a+g.peds.length,0);
-    const msgDifusion = 'Hola chicas 🌸 Para enviar sus pedidos necesito sus datos de envío. Entra a este link, escribe tu celular (o tu usuario de WhatsApp) y completa tus datos 👇\n'+BR_LINK_DATOS+'\n¡Gracias! 💕';
+    const msgDifusion = 'Hola chicas ✨ Para enviar sus pedidos necesito sus datos de envío. Entra a este link, escribe tu celular (o tu usuario de WhatsApp) y completa tus datos 👇\n'+BR_LINK_DATOS+'\n¡Gracias! 🤍';
     window.brMsgDifusion = msgDifusion;
     const head = `<div class="card" style="margin-bottom:12px">
       <div style="font-size:13px;font-weight:600;margin-bottom:6px">📝 Datos de envío</div>
@@ -8091,7 +8128,7 @@ async function showPedidoEmpaque(id){
         <span><strong>${i.cantidad||1}×</strong> ${rgBrEsc(i.producto)}${i.variante?' · <strong>'+rgBrEsc(i.variante)+'</strong>':''}</span></label>`).join('')}
       <div id="emp-prog" style="text-align:center;font-weight:700;font-size:15px;margin-top:14px;color:#6b6a65">0 de ${empTotal} listas</div>
     </div>`;
-  } catch(e){ body.innerHTML = '<div style="text-align:center;padding:30px;color:#b3184a">No se pudo cargar el pedido: '+rgBrEsc(e.message)+'</div>'; }
+  } catch(e){ body.innerHTML = '<div style="text-align:center;padding:30px;color:#66545A">No se pudo cargar el pedido: '+rgBrEsc(e.message)+'</div>'; }
 }
 function empMarcar(){
   const cks = [...document.querySelectorAll('#emp-body input[type=checkbox]')];
@@ -8102,7 +8139,7 @@ function empMarcar(){
 }
 
 // ── Etiquetas de envío 76x50 mm (impresora térmica) ──
-const BR_LOGO_B64 = ''; // logo PNG en base64 para las etiquetas (vacío = sin logo)
+const BR_LOGO_B64 = 'iVBORw0KGgoAAAANSUhEUgAAAbgAAADACAYAAAB2zHarAAAjoElEQVR42u2dfWhV6Z3Hv53bvdu7vbsXsr272U2b3bBhA4HsZjclELBrcbFYsitYUlIsWVKyWIQUByGLS5YMDhbFwWEGB4vFwdLiYHGwWKZYFIcODg5THBwUhxEHRVEMSoLBYDB4ufvHeQ55PHnO+/M859xzvx+4qNd7zzn3vDzf5/f6AIQQQgghhBBCCCGEEEIIIYRYpyxeheQlXl9CCKHAUeAIIYQQChwhhJCcW2/dACoUOEIIIUUUuRIFjhBCSJEoFTn+RoEjhJD2FrguAFUKHCGEkCKKHF2UhBBCCiduFQocIYSQIgpcnQJHCCHEFBW6KClwhBBSNGpwEj2QUYlArcilAhQ4QgjJjmqGAieLHAWOEEKIVuoAOjISmKrkpgQFjhBCiE7cVlnljNyjoAVHCCHEBB0ZdvQvSW5KWnCEEEKg20VZRTbdRDqkY6AFRwghBDpjYHXxqiG78gRacIQQQrQyIAlNVwZWVEUS2jIFjhBCCDTFvzZK/x7KoOC7Q7LgqhQ4QgghOtiAF92SHULwbFpSZYXYFYov8z4jhBDYdAsOCIHzuiQ3AlgB8AmAJQvH0unzdwocIYQQxO1Y0i8Ezs8luFl87hqALwAsGy7ypsARQghB3Nq2HiEkneK9aoSi7pIQwR5hxT0CcF/8fVFYeI80xt/8BI8CRwghBBCiNQLHzegVi0bMllglqTauE8Cg5/+XAZyH48pcRfIOKjJdoMARQghRsArgA/FyLaQKnBq3LiEoNURri9UQltoigLsA5sVrCfpic3WFqHaIfVLgCCGE+OIKxX0AnwoB6YYTf+sPyFpcAfAZ1mJwqzDXA1P13mLRajEIIYSYpQngMYDbwgrrBPBVhRX4HoBLQhgbBsf9LQD+xPP+EoAbYB0cIYQQJHNlXgPwoeL/3ocTV1s2fAx+XVO6WOhNCCEkDQ0Af/TE0+6L9xqws0RPyScuV6LAEUIISStyH0h/vwYn/mYDPwuu7BObo8ARQgiJxadYSyyZt2S9VRHclquTWZSEEELSsgynaHsVdlpzuQJWC0g+6aAFRwghRAdfwEnNtylw1QCB64T9VQ0ocIQQgmJmVTZgxz3prjtXDmnh1UmBI4QQkpZHcGJwqxb2VYtQClDLaPFVChwhhBRQ4BYtWXB9WN+iC4pMyj4UpPkyBY4QQrJjCU4GJSw0gx6MaJn1oiDJJmzVRQghyDQGtwzgueH9DItXVMPnq3Bq85oUOEIIIUjYo9K0uNUBjIckl6i+8xhOhxXQRUkIIQQ5XEl8S8KY2uZW709JC44QQopJCcC/ARhKONZ/BcDX4KxJ95QCRwghJC/8q7DCvoJ0pQUlAPdgp5SBAkcIISRwXP9nAP+J9WvOIUEY62/Fnwuw1xCaAkcIIWSdxTUCJ+72VejL1fh7OIknC7DXVowCRwghBCUhQlvgxNy+YmAfXwPQA2cl8AewU5yeii/xviCEkJamLIRtEHY6kKzCSTz5LewUqVPgCCGkjay1Chx35JB4VTJc0+4TIXQreUtEocARQkhrCFpViFodTjutnpwsbdOA01PzBpzCcHf5n+Ws3ZgUOEIIyQ+uZdYh/nRfZc+/kePWY0tC5NzXvPTeKgWOEEKKTV2IVrewzOrSeyXxKkv/Rgv32lyV1r1zRe++sPDcZtMNChwhhCA32ecNSYzk/2sIS6xTCFSHELFu6X2CdW7Ou+Lv80IQXTGEFONTfa8hnXcKHCGEpKBDCJdreXVKllZdiJjXEiPJhW/VYw0ueV5uzG9VEkQKHCGEQE/crCyJXglrLa5ksat63quKPyvIR7JIFuK1IglTA2uJKcuSdbYsPr8sWXHLkvD5Zm9S4AghxJ4QQhK8sufvHdLLjckVpRnHCtbibvOS9dXwCJosWmAMjhBCUKj4XkmKK/XAKQnoheMKbRXBW4ZTNvAFgNuSFdbw/AlmURJCCKlirf6tV6qNQ8ZuRtcCewRnFfAbyEm/SgocIYS0rti5glfPyEq7L6y0G0LgGuxkQgghBJpcmq5FNwgnfmfDarsBp0XXfW/mIgWOEEIINDdc7oTTdLkXZpNFzsNxRS5xuRxCCCE2rKolITwlAN+As46bzu0/AfCWsN6ecT04QgghtoXuJoDnAP4aetaFc12SJ5BjdyQFjhBC2oN7cGrKvoF0nVQaAD4DcBbOat6gwBFCCMmSphCkl4TIJR3rHwJ4Dzlf2JQCRwgh7cVzAHcA/AOSZ1f+QliDLclLvAcIIQRFjsn9BmudROJ870OsdfgHLThCCCF546n48x8RL4b3DhxXJ2jBEUIIySufIHocrQHgg7x1JaHAEUIIgc/K2h9F/OxdOB1KYKHVWKEEbhhO0LMJZ3VbQjrhpCA3AYzxdLQk3QC2A9gH4DSA6+J6yq/HAC4BOAZgBsAo2nMNtCCmxbm6aEjg5iN0H1mFUyy+aKHzSo/pZtE2BW4OwMeSsB3RvP0exUMV9urWOBt5FnPfg55tXE1w/ElfTwFcBvBLAFszfKC3AHgg/gSAUy02IB2G090h6Fxf0DiQDwqhiHu9z8FM/H67mLDegVMEPAtgGxzX1q8AvAzgBwB+CidhoRvAFICDcFLPnwpB7E+w/4sp7v9jGs/D2Zj7vqPYRk08/4fFvzdIz4ROFiNYZosWrDdIi8K2/CSnBuCKz8WuGJpN2hI2L/UI++4PEcqbPt97kMJC2iRmh4fh1LWotr87ZUFoXN7wOY6NLXqfDwVc86sG9tcjLKGge+2SgWesS0xOvfuaipG0Vgdw3PP9h2Ib5Zjn4GgMcZkxlFhXFqIdtO8TPs/+sM/nPzYkKpsB7BfHq3pNWVqCpxPAzlb25HUC2Bty0acN7XsyYJ/bDf/uzQH73pNCoB9Ar6v4UgbnpwJgB5wC1CCLBy28hInf75owtM++gH12aB7Ez3i2vyAstjTn65DiuMdjbmdTBHGbtnD9/URuzOcZPBlyzDUDxzggLG2VuO0T45cNusRx9LTig74dTprpw5AL+BBmK/lVLxs8Trnv9wwLXJhbd7ehfd0TvyNsMKoCLd1BwuaA5U4cbhl0w3XDcSeaEuwK1rscj8W0toZDzr2NkqgOxX5VgnFCPAth7u05Q8Iy4yNwe8WEyZbHY04ILlotBvcOgK8D+Cs4S/J8CcB/+7gqTGXSqIKkttrNfJHx96NyW1yjVc/7h8QNr3tfXwfwN9I98U2fz+5Aa3PN5/0TMLeEyXcN3UOjcOJGsqvz3+HE2HQe/7fEuOEyJfYbdSHPP8KJ9amwtRDnoqILyHnF534onoU/F8/Bn/p8bs7QMS4HlAc8gj0PX7VISSZvw+lI7WXW4OAd5T0TqKr/76c8dlM8AvCXWJ9dNWPQrQapNkc1KO1tcYH7BdQp2aNw3GkmuOHZp4576JDwJsj8C4D3Df2GH3ruhy7h5RmJ+P1X4R/zy4KfIHqG4/egjpkNGZgMLQWs0L1oMfPW/bNcBIGr+5i/k4bcB1kKXNp934b9pee/pXj/lxZcO7MKC7KKZJl1eeK7Pu9fMPhA/1jjPXQa613VfwfgU8Pn7f88vwNw4sWbIgrF9+Gf7GYaeXx7OWZ7rGkfK3PO0gQclrInASdc0SUJXKUIArdbzNgPKP5vm4H9zftYK7asojT7fgRk4lb7UPH+Lpiti4SPuM6htVkC8B8BlpGpa7ikwR0/qXgm/8liX8Kfw/H4eCcGUZJm3lVMmAA7yRPyPt5E/DKqHylEcasBAbjtI6Y3LF3fDdIkr8OAlZqJwO0R4vY6snNJNQq2H938yGcwLhmsjfw1nPiJl/EC9Er9HYDf+szWTVmon6X8fi+cFH6ZnwXEFWHRvXcJyV2VW2BP4H6G+JmNFfEsqFz2EwYm/40MJtYlOO7mfs97G02VC7xkUbEBp6v1I8VD2I/s/OQELyQmPApxvUBj5tyoZNG/6pON2+r8l8/7f8ihwJXhdCHx8nIG520FwHcU9+G+CN9VCcyUhWN2mya8hvhu+vPC8nzLggHQUMThGjDroqwJcdusmLhW4JRSDOq2Vl+y2MXkt9Ks4RXFZ2aoL8hLU1b4uBKhuVYRWIvpvFnAZBOIgeSHUMekd+VM4E4o4oPf9nH52eA8gN8rxGADwjMFVbFCk3HdQck6uh1zUjEuTfSWsT5U0An99WLzivvUxCS2S1yvbULcqgFZldvEpHdYWHSlVhC4qvhhcuztNxS4the4Oc9MVzUoycHoVuYdqF18bxjwXCSNo2xSFCT/Dk5X+Sz5AdRtusIGv5/6uIZhsI8kAkoV/HCL2t8PcbHOGha4uykt/7qYQGwQ99EEnHKfCTH+90ewzipirBmF473ZKSbCo8L664tr4dkQONc18JHHHFbV0bRqm6aiC9yQgSyqToXV9qpP7LYI+GVVnoGdDDlE6MLh5X9zYgG/C393oB+qSfROC+Pc2zG/txdOWYnXclVtv2RwIrSMdJZajxgnBoQ1OyAmpx0JsobL4nvdkmgOCfEbRIyM2C/DjnvyLZ8Z1oTiYn+bGpMpZQvB51kxg/T6/P0SMn5SgPN6XwjGfs/7I3BcM7/J8NjqPpOYazk5d28qrMu9IeesISzn7YqEjmuGygPehxM7RIyuIj1QZ9u+ifUu7K0a75NljRbcEpxEsT96kkdc16rriamFiHQDjidnHo6r/ZHY9lJeXZR9Qolf95lBLCksuFZu01QEhiJadUiRSTUFdblIw2cGvKUg5/aAz8N6OuP7fnfERI2s+NAn87AT8d2UJuKeOxO6J2fgxDdVcdPXDMekFz2x1WXoT2S5L67dO0KYrwXEc1fgePneEa9PhOgu5TkGNysO0C/o+oplNwJB5GC5KYEbRbAr50ABa+JkvuXz/tEMj2mPjwWBnMUx48btP1NYVFMGBS5uh5ddPve7a/HfVoh63VBrsUXDZVM34MR0rylKFBri/86L391ohSzKEhwX5AEEt+8q8mDWigwbFrg5sb3lgFKFeYUbr1aQ83sNTiEzFCURwxkczybNySqmeD2i5RnFihuE3pZTZajDMIhQM/dWzHq+3QbqdVct1e4uwQlDLCr6iH4S072bucCNSV0JEOAHfl+RdTkAkgX9PkJyX2O39aGQSY/fgz1doPP8k4BFPG0Xt8+2gPUWNMkKa+H1lmE35c6EtW9zwkJ7FNNq3WMgIWnRYnOKFbxY+rECJ1O30WqF3nPCRbCYYDCbBcmC44iWpp2UXQEZbvA0K0YBa+IgzZi/A3WCj+3fuSFizCsPfJYg83pJIY6TmgVuPmaSRlWc9wMR7pN3I16zpPehKzINy9dxUfLYLKPFWnW5NREHInz2A5/akDKITQaw3kW2Cqd9kKmC/6izPBjqrJ4lqiJmZLAIZDnD5ZqgYRmpvoRuymFNS77UEiSXuN6IXyU89jnNMbhly9exIV3LuybF1ZTAucHfqIPjawEFkARWivEvGrbehgOSSKJa9kWLz/qd33MZihtgfzUL0wL3W0NeoqS1b3PCSo4Sc/pUkXm4WVPWbcNjydnkriSuLSlw52OcuNcL7pLKMx0AFhSxt1egtzZrTlHwH8RHPsW9RbLsl6BucN0LvW40BDRW9juuPHI7YfstVWMJHffSTsSvfXMbKx+I8Z1XDfXWnM8gBicL3JLpe+0lgz79AzFP9A1Ft4tuEBhedHBB8aC/HLB4JFI0Vo6bafbTgB6WReEXPhmLxyMuD4OUSUVosWbgUa1QRCg/mUgZhulK4J50J3q/j/EdUw2YVzO8lg0xMVhtNYGbS1gT8mqB+lOWWqDW7SKAO1B3v3/TUGPl1xG/g0U7WPbf8Xn/JOwt0Jl36y3IdVqOmNiwovFemk4wzpXhZJe/E9NiWlJ4NGoaJiiuyCxnJHbzJkoDTAqc21j57QTf/XXBU8OzohNOKvU0gCNC1K4oMrH+B8CfIVrgO8mkZylBbOcR1rdV6rSchAFL7ppXfGqlNsGsBY+MVnVGwnZnfvd4kkl0Vwov0UwCj8R4wpICU9nmDSFuK8gmk3g+Yysy0aymmWL9sBPi+/Ir6Uq8hxXbOgR7nSG8+z4d4/sjiu/rfD2Hs+7XKUWPPxhorNxMUb8zpjj+ozl+BppIVoxbAvDU53qVY8Z4mhEH7lnFvh7n+Nz2pTw/VcV3j6Q4jt6Y37spvpfm3vK+Sinj7zOaC9/jGEODrRZTfwDgGdLFBLwX8CIFDk0AD8VNoXrV4NSY+QnabvG5LG6mI+IYOlK4e1W/qWgCB/HAN1MOwnEEbqzFzu0WDcd7UcPvPZZgnOsU+zqY4verxrSxlAI3aWhB4yKEcpQz9bQxkieKi1ilwOFBzFmi9/VGhgP+daQvQNdl2edZ4Px+azNGvCWOwPW3mMBNK471WYLWZN5tjCa4xvtifme/+F5XSpey99ivpLSixjIUuJbCnanXNZQYeC/irhYTuNkMBa4zwJIbsXxPbBb7nYB+19RFFFPgKj7XbsGAwJV99pXXvp+HNA3w3m18HOO7GxMKVZxnOIg7iuPvSCFwowWMacNEkslOhPdWi8LP2LoLaTOTvu/zf5csuwVmYxb8I6Dx76KiHKWISyutQL0+WIeBrOLVAG9MHunV1BT6NUUTgo4Y3pn5mMk4wwlKp2ChT2tDjNcrAAUuSmfsA5oW4vtAUXNS2FmGAd6FunsDFAtuwmAQeSPiFfxnUeyaR34Hdfr5wRgZg2lErhftJXBRRaIMJw74esKJ3tsazsGvNBoAjVbLYsyKPwhTuQJ9S3ikzZxrVxclQlxdTUsDmJv0skljsbgq8QYFc1HKFpvq2l2GPhel/OzmIV6bJIswaSz2KtZnFoexHfFdguWI1y0OZxTnYSBhq7Z+zWvMoYh9DE3ERNIGv7MUuLkcCBzgNCdWncdbsJNRqzth4Zzit/QUVOAAYIfP9RvTKHCbfMpIkMOV5nUmxGxTbGsogih+jvhNDpqay3FU5+IEkmUx1gvq6tc+Ux/VvN03FBdxCwUuNgd9BoYdMJ9Rewz628DlvSauqXlRyls+16+qSeD8JpN5y6w7odnSVJWfnAn4fC3hc3NTQ72aiueaauKqFLhgHhouSk6aOUeBC86UaxrsdXjE4j2Rt7R23QLX4/ObT2oUuP3QUwBt2z2ZNh55FNGLxvckCMN0Wn4OxhIKXAUk8OG7bGj7d1LUxKkE7rCl87I3RwIHOJ3TVQ/EBcODkQnSWvatJnCAU3MVtewjicDVcz5xUFnu1w1NHvwstAXEKyeQvSeTMLMKiM6aOBIwU5+xWDC9K4XAnWtTgYMYEJoWxMGtfbsEe+2aLhZc4Eo+LimVWyqJwEFMUnUkLpjglOYOHkGT6HvwL7AeTzjRqxmOc9vwyrQlzYQPUxoT/2EKt8udNha43gDXRtVARu0uy+6qaoEFDnBqqVS/e78mgduMeDEpW9QM9GCEp9QkLHHpcIKeoMMJO60gZSikaIsCZ8ZmS66MxwnT3CcydLvkUeAAJ+mjadACqmqMjyBmO6tdKLbAAepEC++APJBi0qmylDZkfD7fM3xM5QiJS0m8P24q/3GD56ZLQ+syEjJTf8/wfvYnzJwbpsBF6qbuvqY1ZtSaPs/DKVpZ2RC4PYa2XYlQ9pFG4MpQu0Kz6viuKmHYBzsuUO+9tiWhaJrumfo0x65ltHrtWxNO8SMsJLLEFSo/14aNosZ9ORU4P5dM3Ia+CMmoPY1ssup6cyJwJksXtoY00x5IGTboyzA5K8yy+tzQvgYU+9oq/u804rtEJ6HflYoY/TlPgmibqVczGsy2JPzeGPIvcBsMd+0IKu2oaJiI2DjHp3NaE9cU3g2TXAy4twc0xMWncmAVHLM8OX2i6Bjj1sqdQrLat1sZrpHXUkvR5IlyBosjvpdwwD+awYKOQxriXKbX6RoKELikiQUXNIgkEs6S85JF1h2QiaeTekgtlI7EL1U7qG5L51HVwWWT4X3uVuxzMsEqHCOG3alRJ/JsUK/BOrE1Y57xuYgTCQstt8KM2/aENINvRkg/jvt7YbjtVTPh8jYjGfSH7NUs0NC0ooatJWemQ4p+uw25vwYyiF9vsBx2SfPcPdbo8keKemGWDGiYOU4i25V8o1gLlxTfear5+LZLhdM1DQJ12ILbYSRkgOxJ+FCfybi7RRPOytjIOOPPxuTvnuauFipGLVpTxxWTQpuNgFWTvmMpLM8sM03zUuaBVnJNXs1RZ5CoF7Eb/l3ZaylnfNNYK7Yc02iBnTM4K48iEO4koJzg2jywdE8Mhhx7LaOuPjYTmvpCruFDYYUdTtkrthtO+nnTUHJZWeH1OJZBHGlDisSr3gz7eS4E3AOjIIiSnnwT6sw+0zdhyadi39tyqpQgEzOuf70khOyyJ7bWEdHFuCfhsvTu66zmc3sp5LyeCxG5wxm6Rg6HHPtzi7P/ik96/TOYd+kdjNCj8ArS1yWWFXG5BykH0CrUZUDjyE/PyzSTrVmLcd+mxpBDW1ltk4rZm3cQLBkcOC5HbDT6QIhPKcFs97IYMLcLMazCScSYEA/gaTgpyt6syGHEi6GFzeqq8O8erzt+2BWjieuwoj7pcoi4dBic8OyLcey7DWf69gkBCTqGw+J8mzofQfvebqC4+IhCyCdijAN1RZbkQ+HiKyM/OQaHIsT4D1o+/zL9MZ6Dk6yPe5HxmJ2sHwcM+Eku3NMUXbU3xpwxRn1dDhHRKALnFye6HPNYxg1abn6vJN+b1nhP3kxx7WYtukiDXgsR1h3TMdCdNeymLYnB+45icnNZCNi0eF7mxITwlk/5TH+Oxr2OiCGBUzGv+xXDGZ9xxum24UttbJlOw0leGVC4b5YAfAHgrvjzBoBfA1jmvIfklDEx6C4D+B6A87BbHrFBCFW/sGr7Fc/UZ+J1Q/z5PoAV5DNTvA7gx7ytCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYS0IyWeAkIKwQCAvwCwyFNBCCGkCGwD0ATwAECNp4MQQkir0yOE7WMAZZ4OQgghuhkCsNXyPk8JcdvJ008IIUQnNQBXhMi4r8sW9rtJ2h/j54QQQlLTDeC4R9CaAGYB1MXfrxjc/4QkosO8HEiSTFcX53EvgMNwXLt3ADxRXFe/V4WnsrX4Mk8BIUomhah5eRnAzwGsYM1dCADfNHAMdQCfiwH67wDc5WUJPV+jALYD2Bzwud8DWAVwTbweAViCk4E6D+AjAFVhqV8F0CG+V5auOyGEoNXiac8UM/dTAPoCLKseAxbjHbHtg7wsgYwAeM9zvR4A2CWuZxqGAbzB7FRCSKtz3TNI7gqJc7np+SOaj2Ov2O4ORI8HthsVAPs912s7b2FCCFnPKNZS7qPgDq7j0FuoHTfW436+nTgq/e7dvHUJIUQfbrLJZujLyHStx5mI3ylLg/w42sd97P7mS6z9I4SY5JxPptlMxLiJn/UxmmPL5JA4rjHoyew7K7Z3PcaAXZfOT3ebWNduXPRzrCV8EEKIcYG7CCcJ44408EYpQL6HtVR7KNxuPTn7va4Y9WnY1m7pd9Zixp7aJWW95pk49fKRI4TYFrh+6b2uGNaXarB23X9ncvZbj4njGki5nQ7pNx+PWazd02Yxt6swX1+YJZfQfvFTQlpa4EoxB2HXkrmJF11veWKXOKaJlNvZJ/2+LsQvG2inDiaHUewkEresYR+HEUJaQ+B6sNYVYk+M7XhjeKPIX3blnhTb6Jd+2wkkb6rcLn0nxwsubrtT3AuEkIyTTOJaYL3S954jXwXETTh1aUjp2mwKCzUuXZqsx1ahKln0KHAm6C0OH4S0hsAdFyKwTwiUO6CXE1hxdeRrKZorKQqRmykFcgvar4D5MYobl6q3ad0iIYWJwQFr8ZPpGNt6nkAUTdGRUtx2SANZ0ozLzYjXzQQFWt9uCsXsvMJVIAgpgMC56d1PWlDgKilm2SUAC0gfX9nYpjGaKwW2btx7qsphg5DWFjg37nS2BQUuaY2Z3GVjRNN6b+1EucBdWQ7ltK6TEBKj0PuUJ9FksMUE7qY4hk1IlvKdtvi6P4Hlq1tksmJvQUV9S4JngRCS8yzKrTG3lbXAnRT7/yXiZ1nqyHLMOgGhlvH5t7Uiuk3cDNhJDhWEEGRcyL0R8QuRdWV+Ji0AR4GyC0dQrBXEmwBO8/EihGSFG/PagPhJKLpaSN1pY3EDnF6kzQKKG8sBCCHI2oU0G/HzG6SBaxJ6u1oMoL1ibl7r9QmKlzFJCCHIMmuvGdPK0JkN52ZeDkf8/DapFZrq2CsR66y6claGELcNWRWOW/kI7C8XtBlryUiqhgaXFO8dRXw39iRebJqguk9PwWlK3genGcB+8d5j6Ttb+KgT0n48j+gWLGHNhbgQU0DdhUyDWlJNxSwcPyiErikG+CC3WF0xsPYl7DTjHvO4GEihOf6GkLrAq+I6XALwQEwOvOJeR7jbeL9kfcexmrdK5+06nKzIJpwMWngSleRM2oWY5Q8zng44E1CvsShP0G4BeEOR6HWYi8IS0n6cjLgit7z0T5Tle8YQvS9nFOtR3v+UZ7mcWZ/BbkBYDPL+L+LFFQnmYgjaMcXvmYT+GjGVqD+R3JczisF6SnFszxDeBmzK5zwGTUTclnQVaYKxX7KWdynW9mvGKB/p8zQbH/Bc+6AJ2CnP6u59fMQJQVsnNAzGmLEHuc8GPQPZGxEGtkMRulrUPQOeawlc8Gyz7ClVcAf5fk8LrO4YfTH3Stt8AseV6RVLaHRPnpBKFc5I+zoW0OXFfR3y/LsUkBj0uSQGYxHaybnt0p5ifXNw1TENKazpkzEnMvIk6XSIBbaDi8ESQlwmIjYvPhmhBKCKtVjMNjEQjXsG266AwfYUonUzeSb2M6oYvGsKC2ZzwD5n4J8ZKg/UNwF0ivevSNu+CjPxty7PfkZ8BH9BKucoS1ZT2Mro7sTAK4LNgBjeVARrtSQJ7A6FuNUidPTZ4JlMXPcpV6lLmb4dAfWmVWFZxu0FSwhB6y9TcjbiatsXQwTonjQQ9XsERtW+LIprckps1xXNoIH1hGdwf+AzwJcCXKwjcGJIE3DcmhekbcxIhe/XQ6yQqoa2ZEEu421w4m+uhTSssHi6As73HcWkYjDgNw2EXIM61pJJ5OtZkWJ08v43hjQKGA651hfENuvSJO2hJNQVj+dglo87Ie1DNUIcbZs0QGwPKfA+LonmPU9cy7UW4NOySTWQ90SM2530rJsnD/J+PJOO1x2cZXHcKCwH1zqY9ri9aj6WTlmci8cJu/+PSvsJWtX6lJTUslH8Htlt7E22gWfR1KZP3HEK4fHRIwpheyLFuialc9PpU9itErjRkGtd8lich/BiveQ2hRv9CntdEtKehCV0XIzg5pKtGtk1dsETJ3EHtIoYyG7BaWl22XMcJU/G3H4pnnbLI7wPpJhUp8eC6UT4ytje2NURz/FugxNnaioy/qYlV20dTnzupvjdpxJm6R2K6PY8LCYQ+z0ropc8xz8gzve4EIGzEVaI3+gRi25P7FG+X4Y9VmBF2vc5yRqcCWlBNoEXE0e8HoUJ6Trsx5p7vOK53vtprRFCIFkrlZAMudMxhLIZ0P1E/v/PPTG8ZoSMxBOKDMiNkpBUYmTmeff1EI4b1u8zDxSCNeH5zEyKa9Ht2VfYhMJ7/AMhn7kotjcacT2+ps81faJ4/6LHFbtHvP9xSKH+Vs925BKLP3j+7wzWxx/LnvIE9+8dfLQJaW+82W3wScs+iuiuzuEQq6UjIEOzLmbcHSnXq7sZcdWCATh1c0Ei0hvBtTWoYUCVXZ/bsOayRUgD6KGQz3RifbyzS1jZiLi4bbfPyg4jEcXR5Cr0cqbknYw63hBC0DquyXGNqwCQaKsUuHGiksdSbVUuwHFPVniJCSG22e8zgB6J6L4i6ZFdhcMKV+U2niJCCElmvZ3Ei7GMhTZflgYZFNSrYoULbEZMCCFItb5bXVF8G6UZMUHqhsR+57oqJWcQQghJEXvbYLgTB4HvenkVn7q2sOxJQgghIQI358lAI+Z5FlB75hZDP+ZpIoQQpI7/hHXKILCyxl6c+j1CCCEI7j25HcFtrIhe6iELsUZZxYEQQghBnt3DdTgJJUcNrIROCCGEWGd3hDZXhBBCSEsyAKdv4m6eCkIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCsuD/AcD679lFiODEAAAAAElFTkSuQmCC'; // logo PNG en base64 para las etiquetas (vacío = sin logo)
 let brEtqItems = [];
 function brEtqLogo(){
   return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src='data:image/png;base64,'+BR_LOGO_B64; });
@@ -8948,7 +8985,7 @@ async function renderAsistenciaAdmin(){
   if(desde) cond.push(`fecha=gte.${desde.toISOString().slice(0,10)}`);
   if(asistenciaTrabajadorSel!=='todos') cond.push(`usuario=eq.${asistenciaTrabajadorSel}`);
   cond.push('order=fecha.desc');
-  const rows=await dbGet(`asistencia?${cond.join('&')}`);
+  const [rows] = await Promise.all([dbGet(`asistencia?${cond.join('&')}`), cargarPagosAsistencia()]);
 
   const trabajadores=Object.entries(USERS).filter(([k,v])=>v.rol.toLowerCase()==='trabajador');
 
@@ -8960,17 +8997,17 @@ async function renderAsistenciaAdmin(){
     else if(tipo==='medio_dia') resumenPorUsuario[r.usuario].medios++;
   });
   const usuariosConDatos=Object.keys(resumenPorUsuario);
-  const totalGeneral=Object.values(resumenPorUsuario).reduce((a,s)=>a+s.completos*PAGO_DIA_COMPLETO+s.medios*PAGO_MEDIO_DIA,0);
+  const totalGeneral=montoAsistencia(Object.values(resumenPorUsuario).reduce((a,s)=>a+s.completos,0), Object.values(resumenPorUsuario).reduce((a,s)=>a+s.medios,0));
 
   const resumenFilas=usuariosConDatos.length?usuariosConDatos.map(u=>{
     const s=resumenPorUsuario[u];
     const nombre=USERS[u]?.nombre||u;
-    const total=s.completos*PAGO_DIA_COMPLETO+s.medios*PAGO_MEDIO_DIA;
+    const total=montoAsistencia(s.completos, s.medios);
     return `<tr>
       <td class="font-500">${nombre}</td>
       <td>${s.completos}</td>
       <td>${s.medios}</td>
-      <td class="font-500" style="color:var(--green)">S/ ${total}</td>
+      <td class="font-500" style="color:var(--green)">${fmtMontoAsistencia(total)}</td>
     </tr>`;
   }).join(''):`<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:16px">Sin registros en este período</td></tr>`;
 
@@ -8987,12 +9024,22 @@ async function renderAsistenciaAdmin(){
       </div>
     </div>
 
+    <div class="card" style="margin-bottom:14px;padding:12px 14px">
+      <div class="font-500" style="margin-bottom:8px">💰 Pago por día</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:120px"><label class="form-label">Día completo (S/)</label><input id="asist-pago-completo" type="number" min="0" step="0.5" inputmode="decimal" placeholder="Monto en soles" value="${PAGO_DIA_COMPLETO==null?'':PAGO_DIA_COMPLETO}"></div>
+        <div style="flex:1;min-width:120px"><label class="form-label">Medio día (S/)</label><input id="asist-pago-medio" type="number" min="0" step="0.5" inputmode="decimal" placeholder="Monto en soles" value="${PAGO_MEDIO_DIA==null?'':PAGO_MEDIO_DIA}"></div>
+        <button class="btn btn-primary" onclick="guardarPagosAsistencia()">Guardar</button>
+      </div>
+      ${PAGO_DIA_COMPLETO==null && PAGO_MEDIO_DIA==null ? '<div class="text-hint" style="margin-top:6px;font-size:11.5px">Aún no definiste los montos: el total a pagar aparecerá cuando los guardes.</div>' : ''}
+    </div>
+
     <div class="sec-title" style="font-size:13px;margin-bottom:8px">Resumen para pago</div>
     <div class="tbl-wrap" style="margin-bottom:20px">
       <table class="tbl">
-        <thead><tr><th>Trabajadora</th><th>Días completos (S/${PAGO_DIA_COMPLETO})</th><th>Medios días (S/${PAGO_MEDIO_DIA})</th><th>Total a pagar</th></tr></thead>
+        <thead><tr><th>Trabajadora</th><th>Días completos (${fmtMontoAsistencia(PAGO_DIA_COMPLETO)})</th><th>Medios días (${fmtMontoAsistencia(PAGO_MEDIO_DIA)})</th><th>Total a pagar</th></tr></thead>
         <tbody>${resumenFilas}</tbody>
-        ${usuariosConDatos.length>1?`<tfoot><tr style="font-weight:600"><td>Total general</td><td></td><td></td><td style="color:var(--green)">S/ ${totalGeneral}</td></tr></tfoot>`:''}
+        ${usuariosConDatos.length>1?`<tfoot><tr style="font-weight:600"><td>Total general</td><td></td><td></td><td style="color:var(--green)">${fmtMontoAsistencia(totalGeneral)}</td></tr></tfoot>`:''}
       </table>
     </div>
 
@@ -9286,7 +9333,7 @@ async function shCargarAvisar(){
 function shMensaje(p){
   const c=p.cli||{}, nom=String(c.nombre||'').trim().split(/\s+/)[0]||'';
   const nomC = nom ? nom.charAt(0).toUpperCase()+nom.slice(1).toLowerCase() : '';
-  return `Hola ${nomC} 🌸 ¡Tu pedido ya fue enviado por Shalom! 📦\n\n📍 Agencia: ${c.direccion||''}${c.distrito?' ('+c.distrito+')':''}\n🔢 N.º de orden: ${p.shalom_orden}\n🔑 Código: ${p.shalom_clave}\n\nAquí ves tu boleta y el seguimiento 👇\n${BR_URL_BASE}?envio=${p.id}\n\n¡Gracias por tu compra! 💕`;
+  return `Hola ${nomC} ✨ ¡Tu pedido ya fue enviado por Shalom! 📦\n\n📍 Agencia: ${c.direccion||''}${c.distrito?' ('+c.distrito+')':''}\n🔢 N.º de orden: ${p.shalom_orden}\n🔑 Código: ${p.shalom_clave}\n\nAquí ves tu boleta y el seguimiento 👇\n${BR_URL_BASE}?envio=${p.id}\n\n¡Gracias por tu compra! 🤍`;
 }
 function shAvFiltrar(f){ shAvFiltro=f; shAvRender(); }
 function shAvRender(){
@@ -9326,12 +9373,12 @@ async function showEnvio(id){
     body.innerHTML = `<div style="background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
       <div style="font-size:20px;font-weight:700">¡Tu pedido va en camino${nom?', '+rgBrEsc(nom):''}! 📦</div>
       <div style="font-size:13px;color:#6b6a65;margin:4px 0 14px">${rgBrEsc(ref)} · enviado por Shalom${fe?' el '+rgBrEsc(fe):''}</div>
-      <div style="background:#F7F5F2;border-radius:10px;padding:12px 14px;margin-bottom:10px"><div style="font-size:12px;color:#6b6a65">Recoge en la agencia</div><div style="font-size:16px;font-weight:600">${rgBrEsc(c.direccion||'—')}</div><div style="font-size:13px;color:#6b6a65">${rgBrEsc(c.distrito||'')}</div></div>
-      <div style="display:flex;gap:10px;margin-bottom:12px"><div style="flex:1.4;background:#F7F5F2;border-radius:10px;padding:12px 14px"><div style="font-size:12px;color:#6b6a65">N.º de orden</div><div style="font-size:20px;font-weight:700;letter-spacing:1px">${rgBrEsc(p.shalom_orden)}</div></div><div style="flex:1;background:#F7F5F2;border-radius:10px;padding:12px 14px"><div style="font-size:12px;color:#6b6a65">Código</div><div style="font-size:20px;font-weight:700;letter-spacing:2px">${rgBrEsc(p.shalom_clave||'—')}</div></div></div>
+      <div style="background:#FCF8F8;border-radius:10px;padding:12px 14px;margin-bottom:10px"><div style="font-size:12px;color:#6b6a65">Recoge en la agencia</div><div style="font-size:16px;font-weight:600">${rgBrEsc(c.direccion||'—')}</div><div style="font-size:13px;color:#6b6a65">${rgBrEsc(c.distrito||'')}</div></div>
+      <div style="display:flex;gap:10px;margin-bottom:12px"><div style="flex:1.4;background:#FCF8F8;border-radius:10px;padding:12px 14px"><div style="font-size:12px;color:#6b6a65">N.º de orden</div><div style="font-size:20px;font-weight:700;letter-spacing:1px">${rgBrEsc(p.shalom_orden)}</div></div><div style="flex:1;background:#FCF8F8;border-radius:10px;padding:12px 14px"><div style="font-size:12px;color:#6b6a65">Código</div><div style="font-size:20px;font-weight:700;letter-spacing:2px">${rgBrEsc(p.shalom_clave||'—')}</div></div></div>
       <div style="font-size:13px;color:#4a4943;margin-bottom:12px">Para recogerlo, lleva tu <strong>DNI</strong> y estos datos. Puedes seguir tu envío en <strong>shalom.com.pe</strong>.</div>
       ${p.shalom_foto?`<div style="font-size:12px;color:#6b6a65;margin-bottom:6px">Tu boleta</div><a href="${rgBrEsc(p.shalom_foto)}" target="_blank"><img src="${rgBrEsc(p.shalom_foto)}" style="width:100%;border-radius:10px;border:1px solid #ece9e3"></a>`:''}
-      <div style="text-align:center;font-size:13px;margin-top:14px;color:#6b6a65">Gracias por tu compra en Tu Marca 🌸</div></div>`;
-  } catch(e){ body.innerHTML='<div style="text-align:center;padding:30px;color:#b3184a">No se pudo cargar: '+rgBrEsc(e.message)+'</div>'; }
+      <div style="text-align:center;font-size:13px;margin-top:14px;color:#6b6a65">Gracias por tu compra en AURA NOVA ✨</div></div>`;
+  } catch(e){ body.innerHTML='<div style="text-align:center;padding:30px;color:#66545A">No se pudo cargar: '+rgBrEsc(e.message)+'</div>'; }
 }
 
 // Check URL params — routing público
