@@ -392,20 +392,20 @@ td.empty-state{padding:20px;text-align:center}
             <div class="f5-courier-icon">🚛</div>
             <div class="f5-courier-name">Shalom</div>
             <div class="f5-courier-desc">Envío a nivel nacional — recojo en agencia</div>
-            <div class="f5-courier-price gratis">Sin costo adicional</div>
+            <div class="f5-courier-price">Pagas en la agencia</div>
           </div>
           <div class="f5-courier-opt" id="opt-motorizado" onclick="selCourier('motorizado')">
             <div class="f5-courier-icon">🏍️</div>
             <div class="f5-courier-name">Motorizado</div>
             <div class="f5-courier-desc">Entrega a domicilio en Lima Metropolitana</div>
-            <div class="f5-courier-price pago">S/ 14.00</div>
+            <div class="f5-courier-price pago">S/ 10.00 al recibir</div>
           </div>
         </div>
         <div id="f5-shalom-info" style="display:none" class="f5-info-box green">
-          ✓ Con Shalom <strong>no pagas envío</strong> — solo recoge tu paquete en la agencia más cercana. El envío sale en 48 horas hábiles.
+          📦 Con Shalom <strong>pagas el envío en la agencia</strong> cuando recoges tu paquete.
         </div>
         <div id="f5-motor-info" style="display:none" class="f5-info-box">
-          🏍️ El motorizado llega a tu puerta en Lima Metropolitana. Costo fijo de <strong>S/ 14</strong> para todos los distritos. Pagas al programar.
+          🏍️ El motorizado llega a tu puerta en Lima Metropolitana. Costo fijo de <strong>S/ 10</strong> para todos los distritos. <strong>Lo pagas al recibir</strong> tu pedido.
         </div>
       </div>
       <div class="f5-nav" style="justify-content:flex-end">
@@ -489,30 +489,23 @@ td.empty-state{padding:20px;text-align:center}
         <div class="f5-title">Términos y condiciones</div>
         <div class="f5-desc">Lee y acepta para continuar</div>
         <div class="f5-tc-box">
-          <h4>📦 Tiempos de despacho</h4>
+          <h4>🛍️ Acumulación de prendas</h4>
           <ul>
-            <li>Los pedidos salen en <strong>48 horas hábiles</strong> desde la confirmación.</li>
-            <li>Despachamos de <strong>lunes a sábado</strong>. No trabajamos domingos ni feriados.</li>
+            <li>Puedes acumular tus prendas hasta <strong>10 días</strong> desde la fecha de compra.</li>
+            <li>Pasado ese plazo, <strong>se pierde la mercadería</strong>.</li>
           </ul>
           <br>
-          <h4>🏷️ Acumulación de prendas</h4>
+          <h4>🏍️ Motorizado — S/ 10</h4>
           <ul>
-            <li>Plazo máximo de acumulación: <strong>15 días calendario</strong> desde la fecha de compra.</li>
-            <li>Pasado el plazo se cobrará una penalidad de <strong>S/ 5.00 por día</strong>.</li>
+            <li>Precio fijo de S/ 10 para todos los distritos de Lima.</li>
+            <li>El envío <strong>se paga al recibir</strong> tu pedido.</li>
+            <li>Horario de entrega: de <strong>2 pm a 10 pm</strong>.</li>
           </ul>
           <br>
-          <h4>🏍️ Motorizado — S/ 14</h4>
-          <ul>
-            <li>Precio fijo de S/ 14 para todos los distritos de Lima.</li>
-            <li>Debes adjuntar el comprobante de pago al programar.</li>
-            <li>Si el paquete es grande se coordinará un monto adicional.</li>
-            <li>Rango de entrega: lunes a sábado de 10am a 9pm.</li>
-          </ul>
-          <br>
-          <h4>🚛 Shalom — Sin costo adicional</h4>
+          <h4>📦 Shalom</h4>
           <ul>
             <li>Recoge tu paquete en la agencia Shalom que indicaste.</li>
-            <li>No debes pagar ningún monto de envío al programar.</li>
+            <li>El envío lo pagas en la agencia al recoger.</li>
           </ul>
           <br>
           <h4>⚠️ Responsabilidades</h4>
@@ -539,9 +532,9 @@ td.empty-state{padding:20px;text-align:center}
       <div id="f5-shalom-confirm" style="display:none">
         <div class="f5-body">
           <div class="f5-title">¡Todo listo! ✨</div>
-          <div class="f5-desc">Tu pedido será enviado a la agencia Shalom que indicaste.</div>
-          <div class="f5-info-box green" style="margin-bottom:0">
-            ✓ <strong>No debes pagar nada ahora.</strong> El envío es sin costo adicional con Shalom. Solo recoge tu paquete en la agencia cuando te avisemos.
+          <div class="f5-desc" id="f5-confirm-desc">Tu pedido será enviado a la agencia Shalom que indicaste.</div>
+          <div class="f5-info-box green" style="margin-bottom:0" id="f5-confirm-info">
+            ✓ <strong>No debes pagar nada ahora.</strong> El envío lo pagas en la agencia Shalom cuando recojas tu paquete.
           </div>
         </div>
         <div class="f5-nav">
@@ -554,7 +547,7 @@ td.empty-state{padding:20px;text-align:center}
       <div id="f5-motor-pago" style="display:none">
         <div class="f5-body">
           <div class="f5-title">Pago del envío</div>
-          <div class="f5-desc">Transfiere S/ 14 por Yape o Plin y sube tu comprobante</div>
+          <div class="f5-desc">Yapea y sube tu comprobante</div>
 
           <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#9C9A92;margin-bottom:8px">Método de pago</div>
           <div class="f5-pago-metodo">
@@ -562,14 +555,10 @@ td.empty-state{padding:20px;text-align:center}
               <div style="font-size:18px;margin-bottom:3px">💜</div>
               <div>Yape</div>
             </div>
-            <div class="f5-pago-btn" id="f5-plin-btn" onclick="selPago('plin')">
-              <div style="font-size:18px;margin-bottom:3px">💙</div>
-              <div>Plin</div>
-            </div>
           </div>
 
           <div id="f5-datos-pago" style="display:none;background:#F8EDEE;border-radius:8px;padding:12px 14px;margin-bottom:14px;text-align:center">
-            <div style="font-size:12px;color:#5F5E5A;margin-bottom:4px">Transfiere <strong>S/ 14.00</strong> a:</div>
+            <div style="font-size:12px;color:#5F5E5A;margin-bottom:4px">Yapea a:</div>
             <div style="font-size:18px;font-weight:700;color:#1A1A18;letter-spacing:.05em" id="f5-num-pago">930 431 511</div>
             <div style="font-size:11px;color:#5F5E5A;margin-top:3px">A nombre de Valeria Sanchez</div>
           </div>
@@ -599,7 +588,7 @@ td.empty-state{padding:20px;text-align:center}
       <div class="f5-success">
         <div class="f5-success-icon">🎉</div>
         <div style="font-size:18px;font-weight:700;color:#1A1A18;margin-bottom:6px">¡Pedido programado!</div>
-        <div style="font-size:12.5px;color:#5F5E5A;margin-bottom:16px;line-height:1.6">Nos estaremos comunicando contigo pronto.<br>El despacho sale en <strong>48 horas hábiles</strong>.</div>
+        <div style="font-size:12.5px;color:#5F5E5A;margin-bottom:16px;line-height:1.6">Nos estaremos comunicando contigo pronto ✨</div>
         <div style="background:#F8EDEE;border-radius:10px;padding:14px;margin-bottom:16px">
           <div style="font-size:11px;color:#9C9A92;margin-bottom:4px">Código de seguimiento</div>
           <div style="font-size:18px;font-weight:700;color:#66545A" id="f5-codigo-ok">—</div>
@@ -1550,10 +1539,8 @@ td.empty-state{padding:20px;text-align:center}
     <div class="form-row">
       <label class="form-label">Tipo de envío estimado</label>
       <select id="env-tipo" onchange="updateEnvCosto()">
-        <option value="motorizado_13">Motorizado Lima — S/ 13</option>
-        <option value="motorizado_14">Motorizado Lima (zona media) — S/ 14</option>
-        <option value="motorizado_15">Motorizado Lima (zona lejana) — S/ 15</option>
-        <option value="shalom">Shalom (provincias) — S/ 20</option>
+        <option value="motorizado_10">Motorizado Lima — S/ 10 (se cobra al entregar)</option>
+        <option value="shalom">Shalom (provincias) — se paga en agencia</option>
       </select>
     </div>
     <div class="card" style="background:var(--gray-light);border:none;padding:10px 14px">
@@ -1561,7 +1548,7 @@ td.empty-state{padding:20px;text-align:center}
         <span>Subtotal prendas</span><span id="env-subtotal">S/ 0</span>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:6px">
-        <span>Costo envío estimado</span><span id="env-costo">S/ 13</span>
+        <span>Costo envío</span><span id="env-costo">S/ 10</span>
       </div>
       <div style="display:flex;justify-content:space-between;font-weight:600;font-size:14px">
         <span>Total estimado</span><span id="env-total">S/ 0</span>
@@ -1811,7 +1798,7 @@ td.empty-state{padding:20px;text-align:center}
     <div class="form-row"><label class="form-label">Total de esta prenda (S/) <span class="text-hint">— edítalo si hubo descuento en el live</span></label><input type="number" id="mpc-total" placeholder="0.00" step="0.01" oninput="mpcRecalcularFalta()"></div>
     <div class="form-row"><label class="form-label" id="mpc-monto-label">Monto recibido (S/)</label><input type="number" id="mpc-monto" placeholder="0.00" step="0.01"></div>
     <div class="form-row"><label class="form-label">Método</label>
-      <select id="mpc-metodo"><option>Yape</option><option>Plin</option><option>Transferencia</option></select>
+      <select id="mpc-metodo"><option>Yape</option></select>
     </div>
     <div class="form-row"><label class="form-label">Nota <span class="text-hint">(opcional)</span></label>
       <input type="text" id="mpc-nota" placeholder="ej. Yape llegó a las 9:15pm">
@@ -1830,7 +1817,7 @@ td.empty-state{padding:20px;text-align:center}
     <div id="mpcli-info" style="background:var(--gray-light);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:12px;font-size:12px"></div>
     <div class="form-row"><label class="form-label">Monto recibido (S/)</label><input type="number" id="mpcli-monto" placeholder="0.00" step="0.01"></div>
     <div class="form-row"><label class="form-label">Método</label>
-      <select id="mpcli-metodo"><option>Yape</option><option>Plin</option><option>Transferencia</option></select>
+      <select id="mpcli-metodo"><option>Yape</option></select>
     </div>
     <div class="form-row"><label class="form-label">Nota <span class="text-hint">(opcional)</span></label>
       <input type="text" id="mpcli-nota" placeholder="ej. Yape llegó a las 9:15pm">
@@ -2228,7 +2215,7 @@ let currentPedidoIdx = null;
 let editingPrendaIdx = null;
 
 const DISTRITOS_COSTO = {
-  'motorizado_13': 13, 'motorizado_14': 14, 'motorizado_15': 15, 'shalom': 20
+  'motorizado_10': 10, 'shalom': 0
 };
 
 let DB = {
@@ -2293,7 +2280,7 @@ async function doLogin(){
   if(currentUser.rol!=='admin') document.getElementById('sb-catalogo').style.display='none';
   if(currentUser.rol!=='admin') document.getElementById('sb-stock').style.display='none';
   if(currentUser.rol!=='admin') document.getElementById('sb-config').style.display='none';
-  if(currentUser.rol!=='admin') document.getElementById('sb-item-brasil').style.display='none';
+  document.getElementById('sb-item-brasil').style.display='none'; // AURA NOVA no usa el módulo Brasil
   if(currentUser.rol!=='admin') document.getElementById('sb-admin-section').style.display='none';
   if(currentUser.rol==='trabajador') document.getElementById('sb-item-dashboard').style.display='none';
   if(currentUser.rol==='trabajador') document.getElementById('btn-nuevo-corte').style.display='none';
@@ -4253,7 +4240,7 @@ function openEnvioModal(){
 
 function updateEnvCosto(){
   const tipo=document.getElementById('env-tipo').value;
-  const costo=DISTRITOS_COSTO[tipo]||13;
+  const costo=(tipo in DISTRITOS_COSTO)?DISTRITOS_COSTO[tipo]:CONFIG.ENVIO_MOTORIZADO;
   const sub=liveCart.reduce((a,i)=>a+i.precio,0);
   document.getElementById('env-costo').textContent='S/ '+costo;
   document.getElementById('env-total').textContent='S/ '+(sub+costo);
@@ -4261,7 +4248,7 @@ function updateEnvCosto(){
 
 async function confirmarPedido(){
   const tipo=document.getElementById('env-tipo').value;
-  const costo=DISTRITOS_COSTO[tipo]||13;
+  const costo=(tipo in DISTRITOS_COSTO)?DISTRITOS_COSTO[tipo]:CONFIG.ENVIO_MOTORIZADO;
   const sub=liveCart.reduce((a,i)=>a+i.precio,0);
   const total=sub+costo;
   let numPedido='';
@@ -5364,7 +5351,7 @@ function bulkExportarCSV(){
   lista.forEach(p=>{
     const c=p.clientes||{};
     // El envío motorizado lo cobra directo el motorizado (externo al sistema) — siempre su costo fijo, salvo que ya lo haya pagado por adelantado
-    const cobrar = p.envio_pagado ? 0 : (p.costo_envio||14);
+    const cobrar = p.envio_pagado ? 0 : (p.costo_envio||CONFIG.ENVIO_MOTORIZADO);
     datos.push([hoy, c.nombre||'', c.distrito||'', c.direccion||'', c.telefono?parseInt(c.telefono):'', 'entrega', cobrar, '', 'ROPA', '', '']);
   });
 
@@ -5922,7 +5909,7 @@ function renderTrackingPage(ped){
   const items = ped.carrito_items||[];
   document.getElementById('trk-items').innerHTML=
     items.map(it=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:12.5px"><span>${it.prendas?.nombre||'Prenda'} <span style="color:var(--text3)">T-${it.talla}</span></span><span style="font-weight:500">S/${it.precio_unitario}</span></div>`).join('')+
-    `<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);padding:6px 0;border-bottom:0.5px solid var(--border)"><span>Envío ${ped.tipo_envio==='shalom'?'Shalom':'Motorizado'}</span><span>${ped.costo_envio===0?'Gratis':'S/'+ped.costo_envio}</span></div>`+
+    `<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);padding:6px 0;border-bottom:0.5px solid var(--border)"><span>Envío ${ped.tipo_envio==='shalom'?'Shalom':'Motorizado'}</span><span>${ped.tipo_envio==='shalom'?'Se paga en agencia':(ped.costo_envio?'S/'+ped.costo_envio+' al recibir':'—')}</span></div>`+
     `<div style="display:flex;justify-content:space-between;margin-top:8px;font-weight:600;font-size:14px"><span>Total</span><span>S/${ped.total}</span></div>`;
 }
 
@@ -5940,7 +5927,7 @@ let f5PagoMetodo = null;
 let f5CapturaBase64 = null;
 let f5PedidoData = null;
 
-const F5_PASOS = ['Envío','Datos','Resumen','Términos','Pago'];
+const F5_PASOS = ['Envío','Datos','Resumen','Términos','Confirmar'];
 
 // Agencias Shalom — compiladas de directorios públicos (no oficiales de Shalom), Lima y Callao.
 // Formato: [distrito, nombre de agencia]. Faltan las 23 regiones restantes del país — se pueden ir agregando.
@@ -6372,7 +6359,7 @@ function selCourier(tipo){
 function selPago(metodo){
   f5PagoMetodo = metodo;
   document.getElementById('f5-yape-btn').classList.toggle('selected', metodo==='yape');
-  document.getElementById('f5-plin-btn').classList.toggle('selected', metodo==='plin');
+  document.getElementById('f5-plin-btn')?.classList.toggle('selected', metodo==='plin');
   document.getElementById('f5-datos-pago').style.display = 'block';
 }
 
@@ -6446,12 +6433,15 @@ function f5Next(){
     }
     document.getElementById('f5-err-4').style.display='none';
     // Mostrar paso 5 según courier
-    if(f5Courier==='shalom'){
-      document.getElementById('f5-shalom-confirm').style.display='block';
-      document.getElementById('f5-motor-pago').style.display='none';
+    // AURA NOVA: ningún envío se paga al programar (motorizado se paga al recibir, Shalom en la agencia)
+    document.getElementById('f5-shalom-confirm').style.display='block';
+    document.getElementById('f5-motor-pago').style.display='none';
+    if(f5Courier==='motorizado'){
+      document.getElementById('f5-confirm-desc').textContent='El motorizado llevará tu pedido a la dirección que indicaste.';
+      document.getElementById('f5-confirm-info').innerHTML='✓ <strong>No debes pagar nada ahora.</strong> Pagas el envío de <strong>S/ '+CONFIG.ENVIO_MOTORIZADO+'</strong> al motorizado cuando recibas tu pedido (entregas de 2 pm a 10 pm).';
     } else {
-      document.getElementById('f5-shalom-confirm').style.display='none';
-      document.getElementById('f5-motor-pago').style.display='block';
+      document.getElementById('f5-confirm-desc').textContent='Tu pedido será enviado a la agencia Shalom que indicaste.';
+      document.getElementById('f5-confirm-info').innerHTML='✓ <strong>No debes pagar nada ahora.</strong> El envío lo pagas en la agencia Shalom cuando recojas tu paquete.';
     }
     f5ShowPaso(5);
   }
@@ -6465,14 +6455,14 @@ function f5BuildResumen(){
   const ped = trackingPedidoData;
   const items = ped?.carrito_items || [];
   const subtotal = ped?.subtotal || 0;
-  const costoEnvio = f5Courier==='motorizado' ? 14 : 0;
+  const costoEnvio = f5Courier==='motorizado' ? CONFIG.ENVIO_MOTORIZADO : 0;
   const total = subtotal + costoEnvio;
 
   document.getElementById('f5-resumen-prendas').innerHTML = `
     <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#9C9A92;margin-bottom:8px">Prendas</div>
     <div style="border:0.5px solid #E8E6E0;border-radius:8px;overflow:hidden">
       ${items.map(it=>`<div class="f5-resumen-item" style="padding:7px 12px"><span>${it.prendas?.nombre||'Prenda'} <span style="color:#9C9A92">T-${it.talla}</span></span><span style="font-weight:500">S/ ${it.precio_unitario}</span></div>`).join('')}
-      <div class="f5-resumen-item" style="padding:7px 12px"><span>Envío ${f5Courier==='motorizado'?'Motorizado':'Shalom'}</span><span style="font-weight:500;color:${costoEnvio===0?'#1D9E75':'#1A1A18'}">${costoEnvio===0?'Gratis':'S/ '+costoEnvio}</span></div>
+      <div class="f5-resumen-item" style="padding:7px 12px"><span>Envío ${f5Courier==='motorizado'?'Motorizado':'Shalom'}</span><span style="font-weight:500;color:${costoEnvio===0?'#1D9E75':'#1A1A18'}">${costoEnvio===0?'En agencia':'S/ '+costoEnvio+' al recibir'}</span></div>
       <div class="f5-total-row" style="padding:10px 12px"><span>Total</span><span>S/ ${total}</span></div>
     </div>`;
 
@@ -6492,10 +6482,6 @@ function f5BuildResumen(){
 }
 
 async function f5Confirmar(){
-  if(f5Courier==='motorizado'){
-    if(!f5PagoMetodo){ document.getElementById('f5-err-5').textContent='Selecciona Yape o Plin.'; document.getElementById('f5-err-5').style.display='block'; return; }
-    if(!f5CapturaBase64){ document.getElementById('f5-err-5').textContent='Sube la captura de tu pago.'; document.getElementById('f5-err-5').style.display='block'; return; }
-  }
 
   const ped = trackingPedidoData;
   if(!ped) return;
@@ -6503,7 +6489,7 @@ async function f5Confirmar(){
   const nombre = document.getElementById('f5-nombre').value.trim();
   const tel = document.getElementById('f5-tel').value.replace(/\s/g,'');
   const dni = document.getElementById('f5-dni').value.trim();
-  const costoEnvio = f5Courier==='motorizado' ? 14 : 0;
+  const costoEnvio = f5Courier==='motorizado' ? CONFIG.ENVIO_MOTORIZADO : 0;
   const distrito = f5Courier==='motorizado' ? document.getElementById('f5-distrito').value : f5GetAgenciaShalom().ciudad;
   const dir = f5Courier==='motorizado' ? document.getElementById('f5-direccion').value : f5GetAgenciaShalom().agencia;
   const ref = f5Courier==='motorizado' ? (document.getElementById('f5-referencia')?.value||'') : '';
@@ -6521,16 +6507,7 @@ async function f5Confirmar(){
       costo_envio:costoEnvio,
       total: ped.subtotal + costoEnvio
     });
-    // Si motorizado, registrar pago pendiente
-    if(f5Courier==='motorizado'){
-      await dbPost('pagos', {
-        pedido_id: ped.id,
-        metodo: f5PagoMetodo==='yape'?'Yape':'Plin',
-        monto: 14,
-        estado: 'pendiente',
-        captura_url: f5CapturaBase64?.slice(0,500)||''
-      });
-    }
+    // AURA NOVA: el motorizado se cobra al entregar — no se registra pago de envío aquí
     // Mostrar éxito
     document.querySelectorAll('.f5-paso').forEach(p=>p.style.display='none');
     document.getElementById('f5-paso-ok').style.display='block';
@@ -6756,7 +6733,7 @@ async function rgGuardar(){
     distrito = document.getElementById('rg-distrito').value;
     dir = document.getElementById('rg-direccion').value.trim();
     ref = document.getElementById('rg-referencia').value.trim();
-    costoEnv = 14;
+    costoEnv = CONFIG.ENVIO_MOTORIZADO;
     tipoEnvio = 'motorizado';
     if(!distrito){ errEl.textContent='Selecciona tu distrito.'; errEl.style.display='block'; return; }
     if(!dir){ errEl.textContent='Ingresa tu dirección de entrega.'; errEl.style.display='block'; return; }
