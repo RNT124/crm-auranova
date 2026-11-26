@@ -1016,7 +1016,7 @@ td.empty-state{padding:20px;text-align:center}
               <div class="card-title">1. Buscar clienta</div>
               <div class="search-wrap" style="margin-bottom:8px">
                 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                <input type="text" id="live-search" placeholder="Número WhatsApp..." oninput="liveSearch(this.value)" autocomplete="off">
+                <input type="text" id="live-search" placeholder="Nombre, celular o DNI..." oninput="liveSearch(this.value)" autocomplete="off">
               </div>
               <div id="live-search-results"></div>
             </div>
@@ -3921,19 +3921,77 @@ function updateColorTalla(){
   }
 }
 
+let _liveSearchSeq=0;
+function liveEsc(t){ return String(t==null?'':t).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 async function liveSearch(val){
-  const clean=val.replace(/\D/g,'');
   const res=document.getElementById('live-search-results');
-  if(clean.length<4){ res.innerHTML=''; hideClientCard(); return; }
+  const txt=(val||'').trim();
+  const dig=txt.replace(/\D/g,'');
+  const letras=txt.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g,'').trim();
+  const esNumero = dig.length>0 && dig.length===txt.replace(/\s/g,'').length;
+  if((esNumero && dig.length<4) || (!esNumero && letras.length<2)){ res.innerHTML=''; hideClientCard(); return; }
+  const seq=++_liveSearchSeq;
   try {
-    const matches = await dbGet(`clientes?telefono=like.${clean}*&limit=5`);
+    let q;
+    if(esNumero){
+      q = `clientes?or=(telefono.like.*${dig}*,dni.like.*${dig}*)&select=id,nombre,telefono,dni&order=nombre.asc&limit=10`;
+    } else {
+      q = null; // cada palabra debe aparecer en el nombre ("ana per" encuentra "Ana Pérez")
+      // búsqueda por nombre: se filtra en el navegador para ignorar tildes (Lucia = Lucía)
+    }
+    let matches;
+    if(q){ matches = await dbGet(q); }
+    else {
+      const norm = t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      if(!window._liveCliCache || Date.now()-window._liveCliCache.t>60000){
+        window._liveCliCache = { t:Date.now(), rows: await dbGet('clientes?select=id,nombre,telefono,dni&order=nombre.asc&limit=10000') };
+      }
+      const pal = norm(letras).split(/\s+/).filter(Boolean);
+      matches = window._liveCliCache.rows.filter(c=>{ const n=norm(c.nombre); return pal.every(w=>n.includes(w)); }).slice(0,10);
+    }
+    if(seq!==_liveSearchSeq) return; // llegó una búsqueda más nueva
+    const btnNueva = `<button class="btn btn-sm" onclick="abrirNuevaClientaLive()">+ Registrar clienta nueva</button>`;
     if(!matches.length){
-      res.innerHTML=`<div style="font-size:12px;color:var(--text2);margin-bottom:6px">No encontrada — <strong>${clean}</strong></div><button class="btn btn-sm" onclick="registrarNuevaEnLive('${clean}')">+ Registrar nueva</button>`;
+      res.innerHTML=`<div style="font-size:12px;color:var(--text2);margin-bottom:6px">No encontramos a "<strong>${liveEsc(txt)}</strong>"</div>${btnNueva}`;
       hideClientCard();
     } else {
-      res.innerHTML=`<div class="pill-row">${matches.map(c=>`<button class="btn btn-xs" onclick="selectLiveClient('${c.id}')">${c.nombre||'Sin nombre'} · ${c.telefono}</button>`).join('')}</div>`;
+      res.innerHTML=`<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px">${matches.map(c=>`
+        <button class="btn btn-sm" style="justify-content:flex-start;text-align:left;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:7px 10px" onclick="selectLiveClient('${c.id}')">
+          <span class="font-500">${liveEsc(c.nombre||'Sin nombre')}</span>
+          <span style="font-size:11px;color:var(--text2)">📱 ${liveEsc(c.telefono)}${c.dni?' · DNI '+liveEsc(c.dni):''}</span>
+        </button>`).join('')}</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:4px">¿No es ninguna?</div>${btnNueva}`;
     }
-  } catch(e){ res.innerHTML='<div style="font-size:12px;color:var(--red)">Error de conexión</div>'; }
+  } catch(e){ if(seq===_liveSearchSeq) res.innerHTML='<div style="font-size:12px;color:var(--red)">Error de conexión</div>'; }
+}
+
+function abrirNuevaClientaLive(){
+  const txt=(document.getElementById('live-search').value||'').trim();
+  const dig=txt.replace(/\D/g,'');
+  const esNumero = dig.length>0 && dig.length===txt.replace(/\s/g,'').length;
+  const res=document.getElementById('live-search-results');
+  hideClientCard();
+  res.innerHTML=`<div style="background:var(--pink-light);border-radius:var(--radius-sm);padding:12px;display:flex;flex-direction:column;gap:8px">
+    <div class="font-500" style="font-size:13px">Nueva clienta</div>
+    <div><label class="form-label">Celular (WhatsApp) *</label><input id="nc-tel" type="tel" inputmode="numeric" maxlength="9" placeholder="9 dígitos" value="${esNumero&&dig.length===9?dig:''}"></div>
+    <div><label class="form-label">Nombre *</label><input id="nc-nombre" type="text" placeholder="Nombre y apellido" value="${!esNumero?liveEsc(txt.replace(/\S+/g,w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase())):''}"></div>
+    <div><label class="form-label">DNI (opcional)</label><input id="nc-dni" type="text" inputmode="numeric" maxlength="8" placeholder="8 dígitos"></div>
+    <div id="nc-err" style="display:none;color:var(--red);font-size:12px"></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-sm" onclick="liveSearch(document.getElementById('live-search').value)">Cancelar</button><button class="btn btn-sm btn-primary" style="flex:1" onclick="guardarNuevaClientaLive()">Registrar y seleccionar</button></div>
+  </div>`;
+  setTimeout(()=>document.getElementById(esNumero&&dig.length===9?'nc-nombre':'nc-tel')?.focus(),50);
+}
+
+async function guardarNuevaClientaLive(){
+  const tel=(document.getElementById('nc-tel').value||'').replace(/\D/g,'');
+  const nombre=(document.getElementById('nc-nombre').value||'').trim();
+  const dni=(document.getElementById('nc-dni').value||'').replace(/\D/g,'');
+  const err=document.getElementById('nc-err');
+  const fallo=m=>{ err.textContent=m; err.style.display='block'; };
+  if(tel.length!==9) return fallo('El celular debe tener 9 dígitos.');
+  if(nombre.length<2) return fallo('Escribe el nombre de la clienta.');
+  if(dni && dni.length!==8) return fallo('El DNI debe tener 8 dígitos (o déjalo vacío).');
+  await registrarNuevaEnLive(tel, nombre, dni);
 }
 
 async function selectLiveClient(id){
@@ -3979,16 +4037,21 @@ function hideClientCard(){
   document.getElementById('live-resumen-card').style.display='none';
 }
 
-async function registrarNuevaEnLive(tel){
+async function registrarNuevaEnLive(tel, nombre, dni){
   tel = tel.replace(/\D/g,''); // normalizar igual que en todo el resto del sistema
   try {
     // Doble chequeo justo antes de crear — por si otra pantalla (ej. la clienta registrándose sola) la creó en este instante
     const existe = await dbGet(`clientes?telefono=eq.${tel}&limit=1`);
     if(existe && existe.length){
+      toast('Ese celular ya estaba registrado — te muestro su ficha');
       await selectLiveClient(existe[0].id);
       return;
     }
-    const rows = await dbPost('clientes', {telefono:tel, nombre:'Nueva clienta', pedidos_count:0, total_gastado:0});
+    const nuevaData = {telefono:tel, nombre:(nombre&&nombre.trim())||'Nueva clienta', pedidos_count:0, total_gastado:0};
+    if(dni) nuevaData.dni = dni;
+    const rows = await dbPost('clientes', nuevaData);
+    window._liveCliCache = null;
+    try { await dbPost('clientes_historial', {cliente_id:(Array.isArray(rows)?rows[0]:rows).id, tipo_evento:'registro_live', nombre:nuevaData.nombre, dni:dni||null}); } catch(e){}
     const nueva = Array.isArray(rows)?rows[0]:rows;
     await selectLiveClient(nueva.id);
   } catch(e){
