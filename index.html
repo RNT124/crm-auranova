@@ -1110,6 +1110,13 @@ td.empty-state{padding:20px;text-align:center}
             <button class="btn btn-sm" onclick="abrirModalGasto()">💸 Registrar gasto</button>
           </div>
         </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--pink-light);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px">
+          <div style="font-size:12.5px;color:var(--text2);flex:1;min-width:180px">📊 <strong>Ingresos de mercadería por Excel</strong> — suma al stock que ya tienes</div>
+          <a class="btn btn-sm" href="plantilla_ingresos.xlsx" download="Plantilla_ingresos_AURA_NOVA.xlsx">📄 Descargar plantilla</a>
+          <label class="btn btn-sm btn-primary" style="cursor:pointer">📥 Subir Excel
+            <input type="file" accept=".xlsx,.xls" style="display:none" onchange="leerIngresosExcel(this)">
+          </label>
+        </div>
 
         <div class="metrics-grid" id="compras-metrics" style="margin-bottom:16px"><div class="loading">Cargando...</div></div>
 
@@ -2046,6 +2053,17 @@ td.empty-state{padding:20px;text-align:center}
 </div>
 
 <!-- Modal Registrar Gasto -->
+<div class="modal-overlay" id="modal-ingresos">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-title">📥 Revisar ingresos antes de guardar</div>
+    <div id="mi-body" style="max-height:60vh;overflow:auto"></div>
+    <div class="modal-footer" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+      <button class="btn" onclick="closeModal('modal-ingresos')">Cancelar</button>
+      <button class="btn btn-primary" id="mi-btn-guardar" onclick="guardarIngresosExcel()">Guardar ingresos</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-gasto">
   <div class="modal">
     <div class="modal-title">💸 Registrar gasto</div>
@@ -3091,6 +3109,169 @@ async function guardarCompra(){
     await loadCatalogo();
     await loadCatalogoLive();
   } catch(e){ toast('Error registrando compra: '+e.message); }
+}
+
+// ═══════════════════════════ INGRESOS POR EXCEL (Compras) ═══════════════════════════
+// Suma al stock (no reemplaza). Si la prenda no existe, la crea (necesita precio de venta).
+let ingresosPendientes = null;
+function ingNorm(t){ return String(t==null?'':t).trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' '); }
+function ingNum(v){ if(v===''||v==null) return null; const n=parseFloat(String(v).replace(/S\/\s*/i,'').replace(',','.')); return isNaN(n)?NaN:n; }
+function ingFecha(v){
+  if(v===''||v==null) return new Date().toISOString().slice(0,10);
+  if(typeof v==='number'){ const d=new Date(Math.round((v-25569)*86400000)); return d.toISOString().slice(0,10); }
+  const m=String(v).trim().match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if(m){ const y=m[3].length===2?'20'+m[3]:m[3]; return `${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`; }
+  if(/^\d{4}-\d{2}-\d{2}/.test(String(v))) return String(v).slice(0,10);
+  return null;
+}
+
+async function leerIngresosExcel(input){
+  const file=input.files[0]; input.value='';
+  if(!file) return;
+  if(currentUser?.rol!=='admin'){ toast('Solo la administradora puede subir ingresos'); return; }
+  toast('📥 Leyendo Excel...');
+  try{
+    const data=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result); r.onerror=rej; r.readAsArrayBuffer(file); });
+    const wb=XLSX.read(data,{type:'array'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
+    let hi=-1, H=[];
+    for(let i=0;i<Math.min(rows.length,15);i++){
+      const r=rows[i].map(c=>ingNorm(c));
+      if(['nombre','talla','color','cantidad'].every(h=>r.includes(h))){ hi=i; H=r; break; }
+    }
+    if(hi<0){ toast('⚠️ No encontré los encabezados (nombre, talla, color, cantidad). Usa la plantilla.'); return; }
+    const col=n=>H.indexOf(n);
+    const C={nombre:col('nombre'),codigo:col('codigo'),categoria:col('categoria'),talla:col('talla'),color:col('color'),cantidad:col('cantidad'),costo:col('costo'),precio:col('precio'),proveedor:col('proveedor'),fecha:col('fecha')};
+    const get=(r,k)=>C[k]>=0?r[C[k]]:'';
+
+    const prendas=await dbGet('prendas?select=id,nombre,codigo,precio,costo,tallas,colores,categoria');
+    const porNombre={}, porCodigo={};
+    prendas.forEach(p=>{ porNombre[ingNorm(p.nombre)]=p; if(p.codigo) porCodigo[ingNorm(p.codigo)]=p; });
+
+    const filas=[], errores=[], nuevas={};
+    for(let i=hi+1;i<rows.length;i++){
+      const r=rows[i]; const fila=i+1;
+      const nombre=String(get(r,'nombre')||'').trim();
+      if(!nombre && !String(get(r,'talla')||'').trim() && !String(get(r,'cantidad')||'').toString().trim()) continue; // fila vacía
+      const talla=String(get(r,'talla')||'').trim();
+      const color=String(get(r,'color')||'').trim();
+      const cantidad=ingNum(get(r,'cantidad'));
+      const costo=ingNum(get(r,'costo')); const precio=ingNum(get(r,'precio'));
+      const codigo=String(get(r,'codigo')||'').trim();
+      const fecha=ingFecha(get(r,'fecha'));
+      const err=[];
+      if(!nombre) err.push('falta el nombre');
+      if(!talla) err.push('falta la talla');
+      if(!color) err.push('falta el color');
+      if(cantidad==null||isNaN(cantidad)||cantidad<=0||!Number.isInteger(cantidad)) err.push('cantidad inválida');
+      if(costo!=null&&(isNaN(costo)||costo<0)) err.push('costo inválido');
+      if(precio!=null&&(isNaN(precio)||precio<0)) err.push('precio inválido');
+      if(!fecha) err.push('fecha inválida (usa dd/mm/aaaa)');
+      const existente=(codigo&&porCodigo[ingNorm(codigo)])||porNombre[ingNorm(nombre)];
+      if(!existente && nombre){
+        const k=ingNorm(nombre);
+        if(!nuevas[k]) nuevas[k]={nombre, codigo, categoria:String(get(r,'categoria')||'').trim()||'Otro', precio:null, costo:null, tallas:[], colores:[]};
+        const nv=nuevas[k];
+        if(precio!=null&&!isNaN(precio)&&precio>0) nv.precio=precio;
+        if(costo!=null&&!isNaN(costo)) nv.costo=costo;
+      }
+      if(err.length){ errores.push(`Fila ${fila}${nombre?' ('+nombre+')':''}: ${err.join(', ')}`); continue; }
+      filas.push({fila,nombre,codigo,talla,color,cantidad,costo:(costo==null?null:costo),precio:(precio==null?null:precio),proveedor:String(get(r,'proveedor')||'').trim(),fecha,prenda:existente||null,claveNueva:existente?null:ingNorm(nombre)});
+    }
+    // Prendas nuevas sin precio de venta: no se pueden crear
+    Object.entries(nuevas).forEach(([k,nv])=>{
+      if(!nv.precio){
+        const quitadas=filas.filter(f=>f.claveNueva===k);
+        if(quitadas.length) errores.push(`"${nv.nombre}" es nueva y no tiene precio de venta — no se puede crear (${quitadas.length} fila(s))`);
+        for(let i=filas.length-1;i>=0;i--) if(filas[i].claveNueva===k) filas.splice(i,1);
+        delete nuevas[k];
+      }
+    });
+    filas.forEach(f=>{ if(f.claveNueva){ const nv=nuevas[f.claveNueva]; if(!nv.tallas.includes(f.talla)) nv.tallas.push(f.talla); if(!nv.colores.some(c=>ingNorm(c)===ingNorm(f.color))) nv.colores.push(f.color); } });
+
+    ingresosPendientes={filas,nuevas};
+    const unidades=filas.reduce((a,f)=>a+f.cantidad,0);
+    const costoFila=f=>f.costo!=null?f.costo:(f.prenda?.costo||(f.claveNueva?nuevas[f.claveNueva]?.costo:0)||0);
+    const inversion=filas.reduce((a,f)=>a+f.cantidad*costoFila(f),0);
+    const sinCosto=filas.filter(f=>!costoFila(f)).length;
+    const existentes=[...new Set(filas.filter(f=>f.prenda).map(f=>f.prenda.nombre))];
+    const nuevasList=Object.values(nuevas);
+    document.getElementById('mi-body').innerHTML=`
+      <div class="metrics-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px">
+        <div class="metric"><div class="metric-val" style="font-size:20px">${unidades}</div><div class="metric-lbl">Unidades</div></div>
+        <div class="metric"><div class="metric-val" style="font-size:20px">${filas.length}</div><div class="metric-lbl">Talla/color</div></div>
+        <div class="metric"><div class="metric-val" style="font-size:15px;white-space:nowrap">S/ ${inversion.toFixed(2)}</div><div class="metric-lbl">Inversión</div></div>
+      </div>
+      ${sinCosto?`<div style="background:var(--amber-light);border-radius:8px;padding:8px 10px;font-size:12px;margin-bottom:10px">⚠️ ${sinCosto} fila(s) sin costo: se guardan con costo S/ 0 y no entran bien en el cálculo de ganancia.</div>`:''}
+      ${existentes.length?`<div class="font-500" style="font-size:13px;margin:6px 0 4px">➕ Suma stock a ${existentes.length} prenda(s) existente(s)</div><div style="font-size:12px;color:var(--text2)">${existentes.map(liveEsc).join(' · ')}</div>`:''}
+      ${nuevasList.length?`<div class="font-500" style="font-size:13px;margin:12px 0 4px">✨ Crea ${nuevasList.length} prenda(s) nueva(s) en el catálogo</div>${nuevasList.map(n=>`<div style="font-size:12px;color:var(--text2);margin-bottom:2px">• <strong>${liveEsc(n.nombre)}</strong> — ${liveEsc(n.categoria)} · S/ ${n.precio} · tallas ${n.tallas.map(liveEsc).join(', ')} · ${n.colores.map(liveEsc).join(', ')}</div>`).join('')}`:''}
+      ${errores.length?`<div style="background:var(--red-light);border-radius:8px;padding:8px 10px;margin-top:12px"><div class="font-500" style="font-size:12.5px;color:var(--red);margin-bottom:4px">❌ ${errores.length} fila(s) no se van a guardar</div>${errores.slice(0,30).map(e=>`<div style="font-size:11.5px">${liveEsc(e)}</div>`).join('')}${errores.length>30?`<div style="font-size:11.5px">…y ${errores.length-30} más</div>`:''}</div>`:''}
+      ${!filas.length?'<div style="margin-top:12px;font-size:13px">No hay filas válidas para guardar.</div>':''}`;
+    document.getElementById('mi-btn-guardar').disabled=!filas.length;
+    document.getElementById('modal-ingresos').classList.add('open');
+  }catch(e){ toast('⚠️ No se pudo leer el Excel: '+e.message); }
+}
+
+async function guardarIngresosExcel(){
+  if(!ingresosPendientes||!ingresosPendientes.filas.length) return;
+  const btn=document.getElementById('mi-btn-guardar'); btn.disabled=true; btn.textContent='Guardando...';
+  const {filas,nuevas}=ingresosPendientes;
+  let ok=0, fallas=[], preventasResueltas=0;
+  try{
+    // 1. Crear prendas nuevas
+    for(const [k,nv] of Object.entries(nuevas)){
+      try{
+        const r=await dbPost('prendas',{nombre:nv.nombre, codigo:nv.codigo||null, categoria:nv.categoria, precio:nv.precio, costo:nv.costo||0, tallas:nv.tallas, colores:nv.colores.join(', '), activo:true, stock:0});
+        nv.id=(Array.isArray(r)?r[0]:r).id;
+      }catch(e){ fallas.push(`No se pudo crear "${nv.nombre}": ${e.message}`); }
+    }
+    // 2. Actualizar tallas/colores/precio/costo de prendas existentes
+    const porPrenda={};
+    filas.forEach(f=>{ if(f.prenda){ (porPrenda[f.prenda.id]=porPrenda[f.prenda.id]||{p:f.prenda,filas:[]}).filas.push(f); } });
+    for(const {p,filas:fs} of Object.values(porPrenda)){
+      const patch={};
+      const tOrig=Array.isArray(p.tallas)?p.tallas:String(p.tallas||'').split(',').map(t=>t.trim()).filter(Boolean);
+      const tNew=[...new Set(fs.map(f=>f.talla))].filter(t=>!tOrig.includes(t));
+      if(tNew.length) patch.tallas=[...tOrig,...tNew];
+      const cOrig=String(p.colores||'').split(',').map(c=>c.trim()).filter(Boolean);
+      const cNew=[]; fs.forEach(f=>{ if(![...cOrig,...cNew].some(c=>ingNorm(c)===ingNorm(f.color))) cNew.push(f.color); });
+      if(cNew.length) patch.colores=[...cOrig,...cNew].join(', ');
+      const ultPrecio=[...fs].reverse().find(f=>f.precio!=null&&f.precio>0)?.precio;
+      const ultCosto=[...fs].reverse().find(f=>f.costo!=null)?.costo;
+      if(ultPrecio!=null && ultPrecio!==p.precio) patch.precio=ultPrecio;
+      if(ultCosto!=null && ultCosto!==p.costo) patch.costo=ultCosto;
+      if(Object.keys(patch).length){ try{ await dbPatch(`prendas?id=eq.${p.id}`,patch); }catch(e){ fallas.push(`No se pudo actualizar "${p.nombre}": ${e.message}`); } }
+    }
+    // 3. Compras + stock (suma) + pre-ventas
+    const tocadas=new Set();
+    for(const f of filas){
+      const prendaId=f.prenda?f.prenda.id:nuevas[f.claveNueva]?.id;
+      if(!prendaId){ continue; }
+      const costoU=f.costo!=null?f.costo:(f.prenda?.costo||nuevas[f.claveNueva]?.costo||0);
+      try{
+        await dbPost('compras',{prenda_id:prendaId, talla:f.talla, color:f.color, cantidad:f.cantidad, costo_total:f.cantidad*costoU, proveedor:f.proveedor||null, fecha:f.fecha});
+        const st=await dbGet(`prenda_stock?prenda_id=eq.${prendaId}&talla=eq.${encodeURIComponent(f.talla)}&color=eq.${encodeURIComponent(f.color)}`);
+        if(st.length) await dbPatch(`prenda_stock?id=eq.${st[0].id}`,{cantidad:(st[0].cantidad||0)+f.cantidad});
+        else await dbPost('prenda_stock',{prenda_id:prendaId, talla:f.talla, color:f.color, cantidad:f.cantidad});
+        const pv=await dbGet(`carrito_items?prenda_id=eq.${prendaId}&talla=eq.${encodeURIComponent(f.talla)}&color=eq.${encodeURIComponent(f.color)}&preventa=eq.true&estado_bolsa=neq.eliminado&select=id&order=agregado_en.asc&limit=${f.cantidad}`);
+        for(const it of pv){ await dbPatch(`carrito_items?id=eq.${it.id}`,{preventa:false}); }
+        preventasResueltas+=pv.length;
+        tocadas.add(prendaId); ok++;
+      }catch(e){ fallas.push(`Fila ${f.fila} (${f.nombre} ${f.talla} ${f.color}): ${e.message}`); }
+    }
+    // 4. Recalcular stock total de cada prenda tocada
+    for(const id of tocadas){
+      const v=await dbGet(`prenda_stock?prenda_id=eq.${id}&select=cantidad`);
+      await dbPatch(`prendas?id=eq.${id}`,{stock:v.reduce((a,x)=>a+(x.cantidad||0),0)});
+    }
+  }catch(e){ fallas.push(e.message); }
+  closeModal('modal-ingresos');
+  btn.disabled=false; btn.textContent='Guardar ingresos';
+  ingresosPendientes=null;
+  if(fallas.length){ alert(`Se guardaron ${ok} fila(s). Hubo ${fallas.length} problema(s):\n\n`+fallas.slice(0,15).join('\n')); }
+  else toast(`✓ Ingresos guardados — ${ok} combinación(es)${preventasResueltas?' · '+preventasResueltas+' pre-venta(s) resuelta(s)':''}`);
+  try{ await loadCompras(); await loadStock(); await loadCatalogo(); await loadCatalogoLive(); }catch(e){}
 }
 
 // ═══════════════════════════ INVENTARIO (conteo físico) ═══════════════════════════
