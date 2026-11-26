@@ -95,6 +95,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .metric{background:var(--gray-light);border-radius:var(--radius);padding:14px}
 .metric-val{font-size:24px;font-weight:600;color:var(--text);line-height:1}
 .metric-lbl{font-size:11px;color:var(--text2);margin-top:4px}
+.mt-hero{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.mt-ring{position:relative;width:132px;height:132px}
+.mt-ring svg{transform:rotate(-90deg)}
+.mt-ring-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mt-ring-pct{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:600;color:var(--pink-dark);line-height:1}
+.mt-ring-sub{font-size:10.5px;color:var(--text3);margin-top:2px}
+.mt-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:0.5px dashed var(--border);font-size:13px}
+.mt-row:last-child{border-bottom:none}
+.mt-kpi{cursor:pointer;transition:transform .12s, box-shadow .12s;border:1.5px solid transparent}
+.mt-kpi:hover{transform:translateY(-1px)}
+.mt-kpi.sel{border-color:var(--pink);background:var(--pink-light)}
+.mt-kpi .metric-val{font-size:22px}
+#mt-ganancia .metric-val{font-size:19px}
+@media (max-width:480px){ #mt-kpis .metric{padding:10px} #mt-kpis .metric-lbl{font-size:10.5px} }
+.mt-chip{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;background:var(--pink-light);color:var(--pink-dark)}
+.mt-bar-wrap{display:flex;align-items:flex-end;gap:3px;height:150px;padding-top:8px}
+.mt-tip{position:fixed;pointer-events:none;background:var(--pink-dark);color:#fff;font-size:11.5px;padding:5px 8px;border-radius:6px;z-index:9999;display:none;white-space:nowrap}
+@media (max-width:480px){ .mt-hero{grid-template-columns:1fr;justify-items:center} .mt-hero>div:last-child{width:100%} }
 .metric-delta{font-size:11px;margin-top:3px}
 .delta-up{color:var(--green)}
 .delta-dn{color:var(--red)}
@@ -889,12 +907,34 @@ td.empty-state{padding:20px;text-align:center}
       <!-- ── DASHBOARD ── -->
       <div id="pg-dashboard" class="page active">
         <div class="tabs" style="margin-bottom:14px">
-          <div class="tab active" id="db-tab-btn-operacion" onclick="setDashboardTab('operacion')">📋 Pedidos / Operación</div>
+          <div class="tab active" id="db-tab-btn-metas" onclick="setDashboardTab('metas')">🎯 Metas</div>
+          <div class="tab" id="db-tab-btn-operacion" onclick="setDashboardTab('operacion')">📋 Pedidos / Operación</div>
           <div class="tab" id="db-tab-btn-finanzas" onclick="setDashboardTab('finanzas')">💰 Inventario / Finanzas</div>
         </div>
 
+        <!-- ═══ TAB 0: METAS ═══ -->
+        <div id="db-tab-metas">
+          <div id="mt-aviso"></div>
+          <div class="card mb-16" id="mt-hero"><div class="loading">Cargando...</div></div>
+          <div class="caption-text mb-8">Prendas vendidas <span style="text-transform:none;letter-spacing:0">— toca una tarjeta para ver su gráfico</span></div>
+          <div class="metrics-grid" id="mt-kpis" style="grid-template-columns:repeat(3,1fr)"></div>
+          <div class="card mb-16">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+              <div class="card-title" id="mt-graf-titulo" style="margin-bottom:4px">Ventas del periodo</div>
+              <div id="mt-graf-leyenda" style="font-size:11px;color:var(--text3)"></div>
+            </div>
+            <div id="mt-grafico"></div>
+          </div>
+          <div class="caption-text mb-8">Ganancia del periodo</div>
+          <div class="metrics-grid" id="mt-ganancia" style="grid-template-columns:repeat(auto-fit,minmax(105px,1fr))"></div>
+          <div id="mt-ganancia-nota" style="font-size:11.5px;color:var(--text3);margin:-8px 0 16px"></div>
+          <div class="sec-header"><div class="sec-title" style="font-size:15px">Historial de metas</div></div>
+          <div class="tbl-wrap mb-16"><table class="tbl"><thead><tr><th>Periodo</th><th>Meta</th><th>Vendido</th><th>Avance</th><th>Prendas</th><th>Ganancia neta</th></tr></thead><tbody id="mt-historial"></tbody></table></div>
+          <div class="mt-tip" id="mt-tip"></div>
+        </div>
+
         <!-- ═══ TAB 1: OPERACIÓN ═══ -->
-        <div id="db-tab-operacion">
+        <div id="db-tab-operacion" style="display:none">
           <div class="sec-header" style="margin-bottom:12px">
             <div class="sec-title" style="font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600">Resumen</div>
             <div id="db-periodo-toggle" style="display:flex;gap:4px">
@@ -2053,6 +2093,17 @@ td.empty-state{padding:20px;text-align:center}
 </div>
 
 <!-- Modal Registrar Gasto -->
+<div class="modal-overlay" id="modal-meta">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-title" id="mm-title">🎯 Meta del periodo</div>
+    <div id="mm-body"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-meta')">Cancelar</button>
+      <button class="btn btn-primary" id="mm-btn" onclick="mmConfirmar()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-ingresos">
   <div class="modal" style="max-width:560px">
     <div class="modal-title">📥 Revisar ingresos antes de guardar</div>
@@ -2137,6 +2188,7 @@ const CONFIG = {
   SUPA_URL: 'https://qyajkqtzcqauuvbpawyg.supabase.co',          // Supabase → Project Settings → API → Project URL
   SUPA_KEY: 'sb_publishable_soBP6HjxE9GQiW1ge8XEHA_fMlg6PDV',                     // Supabase → Project Settings → API → Publishable key
   TASA_RL: 0.69,                                       // solo módulo Brasil: soles por 1 real
+  DIA_CORTE: 17,                                       // el periodo de ventas va del 18 al 17 de cada mes
   ENVIO_MOTORIZADO: 10,                                // tarifa fija motorizado (S/)
   CANALES: ['Canal 1','Canal 2'],                      // solo módulo Brasil: canales de venta
 };
@@ -2377,7 +2429,7 @@ function nav(page, el){
 async function initApp(){
   // Carga en paralelo solo lo esencial — dashboard y catálogo para el live
   const tareas=[loadCatalogoLive(), loadStock()];
-  if(currentUser.rol!=='trabajador') tareas.push(loadDashboard());
+  if(currentUser.rol!=='trabajador'){ tareas.push(loadDashboard()); tareas.push(loadMetas()); }
   Promise.all(tareas);
 }
 
@@ -2543,6 +2595,9 @@ async function loadDashboard(){
 }
 
 function setDashboardTab(tab){
+  document.getElementById('db-tab-metas').style.display = tab==='metas'?'block':'none';
+  document.getElementById('db-tab-btn-metas').classList.toggle('active', tab==='metas');
+  if(tab==='metas') loadMetas();
   document.getElementById('db-tab-operacion').style.display = tab==='operacion'?'block':'none';
   document.getElementById('db-tab-finanzas').style.display = tab==='finanzas'?'block':'none';
   document.getElementById('db-tab-btn-operacion').classList.toggle('active', tab==='operacion');
@@ -3109,6 +3164,313 @@ async function guardarCompra(){
     await loadCatalogo();
     await loadCatalogoLive();
   } catch(e){ toast('Error registrando compra: '+e.message); }
+}
+
+// ═══════════════════════════ METAS DEL MES (corte día CONFIG.DIA_CORTE) ═══════════════════════════
+// Periodo: del (corte+1) de un mes al (corte) del siguiente, en hora de Lima (UTC-5).
+// "Vendido" = suma de precio_unitario de las prendas registradas (carrito_items) no eliminadas, pagadas o no.
+// Si un periodo se cerró con el botón, el siguiente empieza exactamente en el momento del cierre.
+const MT_OFFSET = '-05:00';
+let MT = { vista:'periodo', data:null };
+function mtYMD(d){ const l=new Date(d.getTime()-5*3600000); return l.toISOString().slice(0,10); }
+function mtAddDays(ymd,n){ const d=new Date(ymd+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+function mtPeriodoDe(ymd){
+  const corte=CONFIG.DIA_CORTE||17;
+  let [y,m,d]=ymd.split('-').map(Number);
+  let iy=y, im=m;
+  if(d<=corte){ im=m-1; if(im<1){ im=12; iy=y-1; } }
+  const inicio=`${iy}-${String(im).padStart(2,'0')}-${String(corte+1).padStart(2,'0')}`;
+  let fy=iy, fm=im+1; if(fm>12){ fm=1; fy=iy+1; }
+  const fin=`${fy}-${String(fm).padStart(2,'0')}-${String(corte).padStart(2,'0')}`;
+  return {inicio, fin};
+}
+function mtFmtFecha(ymd){ const M=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic']; const [y,m,d]=ymd.split('-').map(Number); return `${d} ${M[m-1]}`; }
+function mtSoles(n){ return 'S/ '+Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function mtIso(ymd){ return ymd+'T00:00:00'+MT_OFFSET; }
+
+async function mtDatosRango(desdeIso, hastaIso){
+  const [items, gastos] = await Promise.all([
+    dbGet(`carrito_items?agregado_en=gte.${encodeURIComponent(desdeIso)}&agregado_en=lt.${encodeURIComponent(hastaIso)}&estado_bolsa=neq.eliminado&select=precio_unitario,agregado_en,prenda_id,prendas(costo)&limit=20000`),
+    dbGet(`gastos?fecha=gte.${desdeIso.slice(0,10)}&fecha=lte.${mtAddDays(hastaIso.slice(0,10),-1)}&select=monto&limit=5000`).catch(()=>[])
+  ]);
+  const vendido=items.reduce((a,i)=>a+(Number(i.precio_unitario)||0),0);
+  const sinCosto=items.filter(i=>!(Number(i.prendas?.costo)>0)).length;
+  const costo=items.reduce((a,i)=>a+(Number(i.prendas?.costo)||0),0);
+  const gastosTot=gastos.reduce((a,g)=>a+(Number(g.monto)||0),0);
+  return {items, vendido, prendas:items.length, costo, sinCosto, gastos:gastosTot, bruta:vendido-costo, neta:vendido-costo-gastosTot};
+}
+
+// Rango real de un periodo (respeta el momento exacto de cierre del anterior y del propio)
+function mtRango(per, filas){
+  let desde=mtIso(per.inicio);
+  const ant=filas.find(f=>f.periodo_fin===mtAddDays(per.inicio,-1) && f.cerrado && f.cerrado_en);
+  if(ant && new Date(ant.cerrado_en)>new Date(desde)) desde=new Date(ant.cerrado_en).toISOString();
+  const propia=filas.find(f=>f.periodo_inicio===per.inicio);
+  let hasta=mtIso(mtAddDays(per.fin,1));
+  if(propia && propia.cerrado && propia.cerrado_en) hasta=new Date(propia.cerrado_en).toISOString();
+  return {desde, hasta};
+}
+
+async function loadMetas(){
+  const hero=document.getElementById('mt-hero');
+  if(!hero) return;
+  try{
+    const filas = await dbGet('metas_mes?select=*&order=periodo_inicio.desc&limit=36');
+    const hoyYMD = mtYMD(new Date());
+    let per = mtPeriodoDe(hoyYMD);
+    let fila = filas.find(f=>f.periodo_inicio===per.inicio);
+    // Si este periodo ya se cerró (ej. se cerró el día 17), mostramos el siguiente
+    if(fila && fila.cerrado){ per = mtPeriodoDe(mtAddDays(per.fin,1)); fila = filas.find(f=>f.periodo_inicio===per.inicio); }
+    const rango = mtRango(per, filas);
+    const ahora = new Date();
+    const [dPer, dSem, dHoy] = await Promise.all([
+      mtDatosRango(rango.desde, rango.hasta),
+      mtDatosRango(inicioSemanaLunesLima().toISOString(), new Date(ahora.getTime()+60000).toISOString()),
+      mtDatosRango(mtIso(hoyYMD), mtIso(mtAddDays(hoyYMD,1)))
+    ]);
+    MT.data = {filas, per, fila, rango, dPer, dSem, dHoy, hoyYMD};
+    mtRenderAviso(); mtRenderHero(); mtRenderKpis(); mtRenderGrafico(); mtRenderGanancia(); mtRenderHistorial();
+  }catch(e){
+    const tablaFalta = /metas_mes|42P01|does not exist|schema cache/i.test(e.message||'');
+    hero.innerHTML = tablaFalta
+      ? '<div style="font-size:13px">⚠️ Falta crear la tabla <strong>metas_mes</strong> en Supabase para usar las metas.</div>'
+      : '<div style="font-size:13px;color:var(--red)">No se pudo cargar las metas: '+liveEsc(e.message)+'</div>';
+  }
+}
+function inicioSemanaLunesLima(){
+  const hoy=mtYMD(new Date()); const d=new Date(hoy+'T12:00:00Z'); const dia=d.getUTCDay(); const diff=dia===0?6:dia-1;
+  return new Date(mtIso(mtAddDays(hoy,-diff)));
+}
+
+function mtRenderAviso(){
+  const {filas, per} = MT.data;
+  const box=document.getElementById('mt-aviso');
+  const pendiente = filas.find(f=>!f.cerrado && f.periodo_fin < per.inicio);
+  box.innerHTML = pendiente
+    ? `<div style="background:var(--amber-light);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+         <div style="flex:1;min-width:200px;font-size:13px">⚠️ El periodo <strong>${mtFmtFecha(pendiente.periodo_inicio)} – ${mtFmtFecha(pendiente.periodo_fin)}</strong> no se cerró.</div>
+         ${currentUser?.rol==='admin'?`<button class="btn btn-sm btn-primary" onclick="mtAbrirCierre('${pendiente.periodo_inicio}')">Cerrar ese periodo</button>`:''}
+       </div>` : '';
+}
+
+function mtRenderHero(){
+  const {per, fila, dPer, hoyYMD, rango} = MT.data;
+  const esAdmin = currentUser?.rol==='admin';
+  const hero=document.getElementById('mt-hero');
+  const diasTot = Math.round((new Date(per.fin+'T12:00:00Z')-new Date(per.inicio+'T12:00:00Z'))/86400000)+1;
+  const diasPas = Math.min(diasTot, Math.max(0, Math.round((new Date(hoyYMD+'T12:00:00Z')-new Date(per.inicio+'T12:00:00Z'))/86400000)+1));
+  const diasRest = Math.max(0, diasTot-diasPas+1); // incluye hoy
+  const titulo = `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <div><div class="card-title" style="margin-bottom:2px">Meta del periodo</div><div style="font-size:13px;color:var(--text2)">${mtFmtFecha(per.inicio)} – ${mtFmtFecha(per.fin)} · <span class="mt-chip">${diasRest} día(s) restantes</span></div></div>
+      ${esAdmin && fila ? `<button class="btn btn-sm" onclick="mtAbrirCierre('${per.inicio}')">🔒 Cerrar mes</button>`:''}
+    </div>`;
+  if(!fila){
+    hero.innerHTML = titulo + (esAdmin
+      ? `<div style="background:var(--pink-light);border-radius:var(--radius);padding:14px">
+           <div class="font-500" style="margin-bottom:6px">Escribe la meta de ventas de este periodo</div>
+           <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="mt-meta-nueva" type="number" min="1" step="1" inputmode="numeric" placeholder="Meta en soles" style="flex:1;min-width:140px">
+           <button class="btn btn-primary" onclick="mtGuardarMetaNueva()">Guardar meta</button></div>
+           <div style="font-size:11.5px;color:var(--text3);margin-top:6px">Vendido hasta ahora: <strong>${mtSoles(dPer.vendido)}</strong></div>
+         </div>`
+      : `<div style="font-size:13px;color:var(--text2)">La administradora todavía no definió la meta de este periodo. Vendido hasta ahora: <strong>${mtSoles(dPer.vendido)}</strong></div>`);
+    return;
+  }
+  const meta=Number(fila.meta)||0;
+  const pct = meta>0 ? dPer.vendido/meta*100 : 0;
+  const falta = Math.max(0, meta-dPer.vendido);
+  const porDia = diasRest>0 ? falta/diasRest : falta;
+  const ritmoIdeal = meta*diasPas/diasTot;
+  const vaBien = dPer.vendido >= ritmoIdeal;
+  const R=56, C=2*Math.PI*R, prog=Math.min(pct,100)/100;
+  hero.innerHTML = titulo + `
+    <div class="mt-hero">
+      <div class="mt-ring">
+        <svg width="132" height="132"><circle cx="66" cy="66" r="${R}" fill="none" stroke="var(--pink-light)" stroke-width="12"/>
+          <circle cx="66" cy="66" r="${R}" fill="none" stroke="${pct>=100?'var(--green)':'var(--pink)'}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" id="mt-ring-arc" style="transition:stroke-dashoffset 1s ease"/></svg>
+        <div class="mt-ring-txt"><div class="mt-ring-pct">${pct.toFixed(0)}%</div><div class="mt-ring-sub">de la meta</div></div>
+      </div>
+      <div>
+        <div class="mt-row"><span class="text-muted">Meta</span><span class="font-600">${mtSoles(meta)}${esAdmin?` <a href="#" onclick="mtAbrirCorregir();return false" style="font-size:11px;color:var(--text3);margin-left:6px">✏️ Corregir</a>`:''}</span></div>
+        ${Number(fila.meta_original)!==meta?`<div class="mt-row"><span class="text-muted">Meta original</span><span style="color:var(--text3)">${mtSoles(fila.meta_original)}</span></div>`:''}
+        <div class="mt-row"><span class="text-muted">Vendido</span><span class="font-600" style="color:var(--pink-dark)">${mtSoles(dPer.vendido)}</span></div>
+        <div class="mt-row"><span class="text-muted">Falta</span><span class="font-600">${falta>0?mtSoles(falta):'🎉 ¡Meta lograda!'}</span></div>
+        ${falta>0&&diasRest>0?`<div class="mt-row"><span class="text-muted">Para llegar</span><span>${mtSoles(porDia)} por día</span></div>`:''}
+        <div style="margin-top:8px;font-size:12px;color:${vaBien?'var(--green)':'var(--amber-dark)'}">${vaBien?'✓ Vas por encima del ritmo necesario':'⏳ Vas por debajo del ritmo: a hoy deberías llevar '+mtSoles(ritmoIdeal)}</div>
+      </div>
+    </div>`;
+  requestAnimationFrame(()=>{ const a=document.getElementById('mt-ring-arc'); if(a) a.style.strokeDashoffset = C*(1-prog); });
+}
+
+function mtRenderKpis(){
+  const {dHoy, dSem, dPer} = MT.data;
+  const k=(vista,num,lbl,sub)=>`<div class="metric mt-kpi ${MT.vista===vista?'sel':''}" onclick="mtSetVista('${vista}')"><div class="metric-val">${num}</div><div class="metric-lbl">${lbl}</div><div class="metric-delta" style="color:var(--text3)">${sub}</div></div>`;
+  document.getElementById('mt-kpis').innerHTML =
+    k('hoy', dHoy.prendas, 'Prendas hoy', mtSoles(dHoy.vendido)) +
+    k('semana', dSem.prendas, 'Prendas esta semana', mtSoles(dSem.vendido)) +
+    k('periodo', dPer.prendas, 'Prendas del periodo', mtSoles(dPer.vendido));
+}
+function mtSetVista(v){ MT.vista=v; mtRenderKpis(); mtRenderGrafico(); }
+
+function mtTip(ev, html){ const t=document.getElementById('mt-tip'); if(!html){ t.style.display='none'; return; } t.innerHTML=html; t.style.display='block'; const x=Math.min(ev.clientX+12, window.innerWidth-t.offsetWidth-8); t.style.left=x+'px'; t.style.top=(ev.clientY-34)+'px'; }
+
+function mtRenderGrafico(){
+  const {dHoy, dSem, dPer, per, fila, hoyYMD} = MT.data;
+  const box=document.getElementById('mt-grafico'), tit=document.getElementById('mt-graf-titulo'), ley=document.getElementById('mt-graf-leyenda');
+  const horaLima = i=>new Date(new Date(i.agregado_en).getTime()-5*3600000);
+  if(MT.vista==='hoy'){
+    tit.textContent='Ventas de hoy por hora'; ley.textContent='';
+    const h=Array(24).fill(0).map(()=>({s:0,n:0}));
+    dHoy.items.forEach(i=>{ const x=h[horaLima(i).getUTCHours()]; x.s+=Number(i.precio_unitario)||0; x.n++; });
+    let ini=h.findIndex(x=>x.n>0), fin=23-[...h].reverse().findIndex(x=>x.n>0);
+    if(ini<0){ box.innerHTML='<div class="text-hint" style="padding:30px 0;text-align:center">Todavía no hay ventas hoy</div>'; return; }
+    ini=Math.max(0,ini-1); fin=Math.min(23,fin+1);
+    box.innerHTML=mtBarras(h.slice(ini,fin+1).map((x,j)=>({lbl:(ini+j)+'h',v:x.s,n:x.n})));
+    return;
+  }
+  if(MT.vista==='semana'){
+    tit.textContent='Ventas de esta semana'; ley.textContent='';
+    const lunes=mtYMD(inicioSemanaLunesLima()); const D=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+    const dias=D.map((d,j)=>({ymd:mtAddDays(lunes,j),lbl:d,v:0,n:0}));
+    dSem.items.forEach(i=>{ const y=horaLima(i).toISOString().slice(0,10); const x=dias.find(z=>z.ymd===y); if(x){ x.v+=Number(i.precio_unitario)||0; x.n++; } });
+    box.innerHTML=mtBarras(dias.map(x=>({...x, hoy:x.ymd===hoyYMD})));
+    return;
+  }
+  // Periodo: acumulado vs ritmo de la meta
+  tit.textContent='Ventas acumuladas del periodo';
+  const diasTot=Math.round((new Date(per.fin+'T12:00:00Z')-new Date(per.inicio+'T12:00:00Z'))/86400000)+1;
+  const porDia=Array(diasTot).fill(0), nDia=Array(diasTot).fill(0);
+  dPer.items.forEach(i=>{ const y=horaLima(i).toISOString().slice(0,10); const k=Math.round((new Date(y+'T12:00:00Z')-new Date(per.inicio+'T12:00:00Z'))/86400000); if(k>=0&&k<diasTot){ porDia[k]+=Number(i.precio_unitario)||0; nDia[k]++; } });
+  const hoyK=Math.min(diasTot-1, Math.round((new Date(hoyYMD+'T12:00:00Z')-new Date(per.inicio+'T12:00:00Z'))/86400000));
+  const acum=[]; porDia.reduce((a,v,k)=>{ a+=v; acum[k]=a; return a; },0);
+  const meta=fila?Number(fila.meta)||0:0;
+  const W=Math.max(300,Math.min(700,box.clientWidth||640)),H=Math.round(W<480?190:220),pl=8,pr=8,pt=14,pb=22;
+  const maxY=Math.max(meta, acum[hoyK]||0, 1)*1.08;
+  const X=k=>pl+(W-pl-pr)*(diasTot<=1?0:k/(diasTot-1)), Y=v=>pt+(H-pt-pb)*(1-v/maxY);
+  let path=''; for(let k=0;k<=hoyK;k++) path+=(k?'L':'M')+X(k).toFixed(1)+','+Y(acum[k]).toFixed(1);
+  const area=path+`L${X(hoyK).toFixed(1)},${Y(0)}L${X(0)},${Y(0)}Z`;
+  const ticks=[0, Math.floor((diasTot-1)/2), diasTot-1].map(k=>`<text x="${X(k)}" y="${H-6}" font-size="10" fill="var(--text3)" text-anchor="${k===0?'start':k===diasTot-1?'end':'middle'}">${mtFmtFecha(mtAddDays(per.inicio,k))}</text>`).join('');
+  const puntos=[]; for(let k=0;k<=hoyK;k++) puntos.push(`<rect x="${X(k)-(W/diasTot)/2}" y="${pt}" width="${W/diasTot}" height="${H-pt-pb}" fill="transparent" onmousemove="mtTip(event,'<b>${mtFmtFecha(mtAddDays(per.inicio,k))}</b> · ${nDia[k]} prenda(s) · ${mtSoles(porDia[k])}<br>Acumulado ${mtSoles(acum[k])}${meta?' · '+(acum[k]/meta*100).toFixed(0)+'%':''}')" onmouseleave="mtTip(event,null)" ontouchstart="mtTip(event.touches[0],'<b>${mtFmtFecha(mtAddDays(per.inicio,k))}</b> · ${nDia[k]} prenda(s) · ${mtSoles(porDia[k])}<br>Acumulado ${mtSoles(acum[k])}')"/>`);
+  ley.innerHTML = meta?'<span style="color:var(--pink)">━</span> vendido &nbsp; <span style="color:var(--malva-topo)">┅</span> ritmo para la meta':'<span style="color:var(--pink)">━</span> vendido';
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
+    <defs><linearGradient id="mtg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--pink)" stop-opacity=".25"/><stop offset="1" stop-color="var(--pink)" stop-opacity="0"/></linearGradient></defs>
+    <line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--border)"/>
+    ${meta?`<line x1="${X(0)}" y1="${Y(meta/diasTot)}" x2="${X(diasTot-1)}" y2="${Y(meta)}" stroke="var(--malva-topo)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <line x1="${pl}" x2="${W-pr}" y1="${Y(meta)}" y2="${Y(meta)}" stroke="var(--nude)" stroke-width="1"/>
+    <text x="${W-pr}" y="${Y(meta)-4}" font-size="10" fill="var(--text3)" text-anchor="end">Meta ${mtSoles(meta)}</text>`:''}
+    <path d="${area}" fill="url(#mtg)"/>
+    <path d="${path}" fill="none" stroke="var(--pink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${X(hoyK)}" cy="${Y(acum[hoyK]||0)}" r="4.5" fill="var(--pink)" stroke="#fff" stroke-width="2"/>
+    ${ticks}${puntos.join('')}
+  </svg>`;
+}
+function mtBarras(arr){
+  const max=Math.max(...arr.map(x=>x.v),1);
+  return `<div class="mt-bar-wrap">${arr.map(x=>`
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;cursor:default" onmousemove="mtTip(event,'<b>${x.lbl}</b> · ${x.n} prenda(s) · ${mtSoles(x.v)}')" onmouseleave="mtTip(event,null)" ontouchstart="mtTip(event.touches[0],'<b>${x.lbl}</b> · ${x.n} prenda(s) · ${mtSoles(x.v)}')">
+      <div style="font-size:10px;color:var(--text3);margin-bottom:2px">${x.n||''}</div>
+      <div style="width:100%;max-width:34px;height:${Math.max(x.v?4:1,(x.v/max)*110)}px;background:${x.hoy?'var(--pink-dark)':'var(--pink)'};opacity:${x.v?1:.25};border-radius:5px 5px 2px 2px;transition:height .5s"></div>
+      <div style="font-size:10px;color:${x.hoy?'var(--pink-dark)':'var(--text3)'};margin-top:4px;font-weight:${x.hoy?600:400}">${x.lbl}</div>
+    </div>`).join('')}</div>`;
+}
+
+function mtRenderGanancia(){
+  const {dPer} = MT.data;
+  const pb = dPer.vendido>0 ? dPer.bruta/dPer.vendido*100 : 0;
+  const pn = dPer.vendido>0 ? dPer.neta/dPer.vendido*100 : 0;
+  const card=(val,lbl,sub,color)=>`<div class="metric"><div class="metric-val" style="color:${color}">${val}</div><div class="metric-lbl">${lbl}</div><div class="metric-delta" style="color:var(--text3)">${sub}</div></div>`;
+  document.getElementById('mt-ganancia').innerHTML =
+    card(pb.toFixed(1)+'%','Ganancia bruta',mtSoles(dPer.bruta)+' (vendido − costo)', 'var(--pink-dark)') +
+    card(pn.toFixed(1)+'%','Ganancia neta',mtSoles(dPer.neta)+' (− gastos '+mtSoles(dPer.gastos)+')', pn>=0?'var(--green)':'var(--red)') +
+    card(mtSoles(dPer.costo),'Costo de lo vendido',dPer.prendas+' prenda(s)','var(--text)');
+  document.getElementById('mt-ganancia-nota').innerHTML = dPer.sinCosto
+    ? `⚠️ ${dPer.sinCosto} prenda(s) vendida(s) no tienen costo en el catálogo: la ganancia sale más alta de lo real. Complétalo en Catálogo.`
+    : 'Se usa el costo actual de cada prenda del catálogo. La ganancia neta resta los gastos registrados en Compras y Gastos.';
+}
+
+function mtRenderHistorial(){
+  const {filas} = MT.data;
+  const cerr=filas.filter(f=>f.cerrado);
+  document.getElementById('mt-historial').innerHTML = cerr.length ? cerr.map(f=>{
+    const pct=Number(f.avance_pct)||0;
+    return `<tr><td>${mtFmtFecha(f.periodo_inicio)} – ${mtFmtFecha(f.periodo_fin)} ${f.periodo_fin.slice(0,4)}</td>
+      <td>${mtSoles(f.meta)}${Number(f.meta_original)!==Number(f.meta)?`<div style="font-size:10.5px;color:var(--text3)">original ${mtSoles(f.meta_original)}</div>`:''}</td>
+      <td>${mtSoles(f.vendido)}</td>
+      <td><div style="display:flex;align-items:center;gap:6px;min-width:90px"><div style="flex:1;height:6px;background:var(--pink-light);border-radius:3px;overflow:hidden"><div style="width:${Math.min(pct,100)}%;height:100%;background:${pct>=100?'var(--green)':'var(--pink)'}"></div></div><span style="font-size:12px">${pct.toFixed(0)}%</span></div></td>
+      <td>${f.prendas_vendidas||0}</td>
+      <td>${mtSoles(f.ganancia_neta)}</td></tr>`; }).join('')
+    : '<tr><td colspan="6" class="text-hint" style="text-align:center;padding:16px">Todavía no hay meses cerrados</td></tr>';
+}
+
+// ── Guardar / corregir / cerrar (solo admin) ──
+let MM = null;
+async function mtGuardarMetaNueva(){
+  if(currentUser?.rol!=='admin'){ toast('Solo la administradora puede poner la meta'); return; }
+  const v=parseFloat(document.getElementById('mt-meta-nueva').value);
+  if(!(v>0)){ toast('Escribe una meta mayor a 0'); return; }
+  const {per}=MT.data;
+  try{
+    await dbPost('metas_mes',{periodo_inicio:per.inicio, periodo_fin:per.fin, meta_original:v, meta:v, meta_creada_por:currentUser.nombre||currentUser.username});
+    toast('✓ Meta guardada'); loadMetas();
+  }catch(e){ toast('⚠️ No se pudo guardar: '+e.message); }
+}
+function mtAbrirCorregir(){
+  const {fila}=MT.data; if(!fila) return;
+  MM={tipo:'corregir'};
+  document.getElementById('mm-title').textContent='✏️ Corregir meta';
+  document.getElementById('mm-body').innerHTML=`
+    <div style="font-size:13px;color:var(--text2);margin-bottom:10px">La meta original (<strong>${mtSoles(fila.meta_original)}</strong>) queda guardada en el historial aunque la corrijas.</div>
+    <label class="form-label">Meta corregida (S/)</label><input id="mm-val" type="number" min="1" step="1" inputmode="numeric" value="${Number(fila.meta)||''}">`;
+  document.getElementById('mm-btn').textContent='Guardar corrección';
+  document.getElementById('modal-meta').classList.add('open');
+}
+async function mtAbrirCierre(inicio){
+  const {filas}=MT.data;
+  const fila=filas.find(f=>f.periodo_inicio===inicio);
+  if(!fila){ toast('Primero pon la meta de este periodo'); return; }
+  const per={inicio:fila.periodo_inicio, fin:fila.periodo_fin};
+  const rango=mtRango(per, filas);
+  const hastaAhora=new Date(Math.min(new Date(rango.hasta).getTime(), Date.now())).toISOString();
+  const d=await mtDatosRango(rango.desde, hastaAhora);
+  const meta=Number(fila.meta)||0, pct=meta>0?d.vendido/meta*100:0;
+  const sig=mtPeriodoDe(mtAddDays(per.fin,1));
+  const antes = mtYMD(new Date()) < per.fin;
+  const sigFila = filas.find(f=>f.periodo_inicio===sig.inicio);
+  MM={tipo:'cerrar', fila, d, pct, sig, hasta:hastaAhora, sigTieneMeta:!!sigFila};
+  document.getElementById('mm-title').textContent=`🔒 Cerrar periodo ${mtFmtFecha(per.inicio)} – ${mtFmtFecha(per.fin)}`;
+  document.getElementById('mm-body').innerHTML=`
+    ${antes?`<div style="background:var(--amber-light);border-radius:8px;padding:8px 10px;font-size:12px;margin-bottom:10px">⚠️ El periodo termina el ${mtFmtFecha(per.fin)}. Si lo cierras ahora, las ventas desde este momento cuentan para el periodo siguiente.</div>`:''}
+    <div class="mt-row"><span class="text-muted">Meta</span><span class="font-600">${mtSoles(meta)}</span></div>
+    <div class="mt-row"><span class="text-muted">Vendido</span><span class="font-600">${mtSoles(d.vendido)} (${pct.toFixed(0)}%)</span></div>
+    <div class="mt-row"><span class="text-muted">Prendas vendidas</span><span>${d.prendas}</span></div>
+    <div class="mt-row"><span class="text-muted">Ganancia neta</span><span>${mtSoles(d.neta)}</span></div>
+    ${sigFila?`<div style="margin-top:14px;font-size:12.5px;color:var(--text2)">El periodo siguiente (${mtFmtFecha(sig.inicio)} – ${mtFmtFecha(sig.fin)}) ya tiene meta: <strong>${mtSoles(sigFila.meta)}</strong>.</div>`
+    :`<div style="margin-top:14px"><label class="form-label">Meta del nuevo periodo (${mtFmtFecha(sig.inicio)} – ${mtFmtFecha(sig.fin)}) *</label>
+    <input id="mm-val" type="number" min="1" step="1" inputmode="numeric" placeholder="Meta en soles"></div>`}
+    <div style="font-size:11.5px;color:var(--text3);margin-top:6px">Al cerrar se guarda esta foto en el historial y ya no se puede reabrir.</div>`;
+  document.getElementById('mm-btn').textContent='Cerrar mes';
+  document.getElementById('modal-meta').classList.add('open');
+}
+async function mmConfirmar(){
+  if(currentUser?.rol!=='admin'){ toast('Solo la administradora'); return; }
+  const inp=document.getElementById('mm-val');
+  const v=inp?parseFloat(inp.value):null;
+  if(inp && !(v>0)){ toast('Escribe una meta mayor a 0'); return; }
+  const btn=document.getElementById('mm-btn'); btn.disabled=true;
+  const quien=currentUser.nombre||currentUser.username;
+  try{
+    if(MM.tipo==='corregir'){
+      await dbPatch(`metas_mes?id=eq.${MT.data.fila.id}`,{meta:v, meta_editada_por:quien, meta_editada_en:new Date().toISOString()});
+      toast('✓ Meta corregida');
+    } else {
+      const {fila,d,pct,sig,hasta}=MM;
+      await dbPatch(`metas_mes?id=eq.${fila.id}`,{cerrado:true, cerrado_por:quien, cerrado_en:hasta, vendido:d.vendido, prendas_vendidas:d.prendas, costo_vendido:d.costo, gastos:d.gastos, ganancia_bruta:d.bruta, ganancia_neta:d.neta, avance_pct:Number(pct.toFixed(2))});
+      const ya=await dbGet(`metas_mes?periodo_inicio=eq.${sig.inicio}&select=id`);
+      if(!ya.length && v>0) await dbPost('metas_mes',{periodo_inicio:sig.inicio, periodo_fin:sig.fin, meta_original:v, meta:v, meta_creada_por:quien});
+      toast('✓ Mes cerrado — nueva meta guardada');
+    }
+    closeModal('modal-meta'); loadMetas();
+  }catch(e){ toast('⚠️ '+e.message); }
+  btn.disabled=false;
 }
 
 // ═══════════════════════════ INGRESOS POR EXCEL (Compras) ═══════════════════════════
